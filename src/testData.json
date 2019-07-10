@@ -1,0 +1,24 @@
+{
+  "category": [
+    {
+      "id": 1,
+      "categoryName": "What went well",
+      "categoryDescription": "everything"
+    },
+    {
+      "id": 2,
+      "categoryName": "What went well",
+      "categoryDescription": "the best"
+    },
+    {
+      "id": 3,
+      "categoryName": "Bad",
+      "categoryDescription": "all the bads"
+    },
+    {
+      "id": 4,
+      "categoryName": "Bad",
+      "categoryDescription": "so terrible"
+    }
+  ]
+}
