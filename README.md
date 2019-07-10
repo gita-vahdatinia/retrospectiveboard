@@ -6,8 +6,3 @@ A dashboard for teams to view each sprint's retro.
 - git clone
 - npm install
 - npm run start
-
-
-
-### Prerequisites
-React

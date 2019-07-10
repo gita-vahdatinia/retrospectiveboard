@@ -1,11 +1,12 @@
 import React from 'react';
 import Header from './Header';
 import CardPreview from './CardPreview';
-
+import CardList from './CardList'
+import TeamBoard from './TeamBoard'
 class App extends React.Component {
   state = {
     pageHeader: 'Retrospective',
-    category: this.props.initialCategory
+    category: this.props.initialCategory,
   };
   componentDidMount() {
 
@@ -17,11 +18,8 @@ class App extends React.Component {
     return (
       <div className="App">
         <Header message={this.state.pageHeader} />
-        <div>
-          {this.state.category.map(category =>
-            <CardPreview key={category.id} {...category} />
-          )}
-        </div>
+          <TeamBoard/>
+          <CardList category={this.state.category} />
       </div>
     );
   }

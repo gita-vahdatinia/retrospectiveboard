@@ -7,4 +7,6 @@ router.get('/category', (req, res) => {
   res.send({ category: data.category });
 });
 
+
+
 export default router;

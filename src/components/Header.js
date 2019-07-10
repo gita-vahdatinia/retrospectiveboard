@@ -8,8 +8,5 @@ const Header = ({ message }) => {
   );
 };
 
-Header.propTypes = {
-  message: React.PropTypes.string
-};
 
 export default Header;
