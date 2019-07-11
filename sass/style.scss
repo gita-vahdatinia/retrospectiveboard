@@ -1,18 +1,10 @@
-.CardPreview {
+.issues {
+  border-bottom: 1px solid #ccc;
+  font-weight: bold;
   margin: 1em;
-  border: 1px solid #ccc;
-
-  .category-name {
-    border-bottom: 1px solid #ccc;
-    padding: 0.25em 0.5em;
-    font-weight: bold;
-    background-color: #eee;
-  }
-
-  .category-title {
-    padding: 0.5em;
-  }
+  background-color: #eee;
 }
+
 .Card{
     .card_title{
       font-size: 3em;
@@ -20,4 +12,33 @@
       text-align: center;
       font-family: sans-serif;
     }
+}
+
+.add_card{
+  font-family: monospace;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.popup {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  background-color: rgba(0,0,0, 0.5);
+}
+.popup_inner {
+  position: absolute;
+  left: 25%;
+  right: 25%;
+  top: 25%;
+  bottom: 25%;
+  margin: auto;
+  border-radius: 20px;
+  background: white;
 }

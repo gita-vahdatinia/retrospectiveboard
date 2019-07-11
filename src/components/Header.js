@@ -1,10 +1,15 @@
 import React from 'react';
+import {Navbar, Nav} from 'react-bootstrap';
 
-const Header = ({ message }) => {
+const Header = ({ teams, message }) => {
   return (
-    <h2 className="Header text-center">
-      {message}
-    </h2>
+    <div>
+      <Navbar bg="dark" variant="dark">
+        <Navbar.Brand href="#home">
+          {message}
+        </Navbar.Brand>
+      </Navbar>
+    </div>
   );
 };
 

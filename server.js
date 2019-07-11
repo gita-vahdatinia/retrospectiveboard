@@ -3,6 +3,7 @@ import apiRouter from './api';
 import sassMiddleware from 'node-sass-middleware';
 import path from 'path';
 import serverRender from './serverRender';
+import getTeams from './serverRender'
 import express from 'express';
 import bodyParser from 'body-parser';
 
