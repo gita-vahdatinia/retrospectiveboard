@@ -12,6 +12,4 @@ config = configparser.ConfigParser()
 config.read(ini_file)
 
 # configurable data
-S3_BUCKET = config.get(app_name, 'bucket.name')
-TEST_PREFIX = config.get(app_name, 'result.folder.prefix')
 PORT_NUMBER = config.get(app_name, 'port')
