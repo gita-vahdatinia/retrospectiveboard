@@ -30,6 +30,11 @@ module.exports = {
         { loader: 'css-loader', options:{sourceMap: true}, },
       ]
     },
+    {
+      {test: /\.(jpe?g|png|gif|ico)$/i, loader: 'file?name=[name].[ext]'},
+
+    ]
+    }
     ]
   }
 };
