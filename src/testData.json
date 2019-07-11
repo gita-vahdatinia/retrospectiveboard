@@ -2,12 +2,12 @@
   "category": [
     {
       "id": 1,
-      "categoryName": "What went well",
+      "categoryName": "Well",
       "categoryDescription": "everything"
     },
     {
       "id": 2,
-      "categoryName": "What went well",
+      "categoryName": "Well",
       "categoryDescription": "the best"
     },
     {
@@ -19,6 +19,11 @@
       "id": 4,
       "categoryName": "Bad",
       "categoryDescription": "so terrible"
+    },
+    {
+      "id": 5,
+      "categoryName": "Action",
+      "categoryDescription": "eat more celery"
     }
   ]
 }

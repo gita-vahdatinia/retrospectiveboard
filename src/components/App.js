@@ -1,8 +1,7 @@
 import React from 'react';
 import Header from './Header';
-import CardPreview from './CardPreview';
-import CardList from './CardList'
 import TeamBoard from './TeamBoard'
+
 class App extends React.Component {
   state = {
     pageHeader: 'Retrospective',
@@ -18,8 +17,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <Header message={this.state.pageHeader} />
-          <TeamBoard/>
-          <CardList category={this.state.category} />
+          <TeamBoard category={this.state.category}/>
       </div>
     );
   }
