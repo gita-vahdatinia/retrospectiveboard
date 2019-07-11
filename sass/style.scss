@@ -1,18 +1,10 @@
-.CardPreview {
+.issues {
+  border-bottom: 1px solid #ccc;
+  font-weight: bold;
   margin: 1em;
-  border: 1px solid #ccc;
-
-  .category-name {
-    border-bottom: 1px solid #ccc;
-    padding: 0.25em 0.5em;
-    font-weight: bold;
-    background-color: #eee;
-  }
-
-  .category-title {
-    padding: 0.5em;
-  }
+  background-color: #eee;
 }
+
 .Card{
     .card_title{
       font-size: 3em;
@@ -21,6 +13,7 @@
       font-family: sans-serif;
     }
 }
+
 .add_card{
   font-family: monospace;
   position: absolute;

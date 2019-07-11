@@ -2,4 +2,4 @@
 
 cd /server
 
-python TestData.py
+python Server.py

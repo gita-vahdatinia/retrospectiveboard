@@ -1,7 +1,7 @@
 import React from 'react';
 import {Navbar, Nav} from 'react-bootstrap';
 
-const Header = ({ message }) => {
+const Header = ({ teams, message }) => {
   return (
     <div>
       <Navbar bg="dark" variant="dark">
