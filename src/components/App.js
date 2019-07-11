@@ -3,6 +3,8 @@ import Header from './Header';
 import TeamBoard from './TeamBoard'
 import Popup from './Popup'
 import {Button} from 'react-bootstrap'
+import * as api from '../api';
+
 class App extends React.Component {
   state = {
     pageHeader: 'Retrospective',
@@ -15,7 +17,11 @@ class App extends React.Component {
    });
  }
   componentDidMount() {
-
+    api.fetchTeams().then(teams=>{
+      this.setState({
+        teams: teams
+          })
+    })
   }
   componentWillUnmount() {
     // clean timers, listeners
