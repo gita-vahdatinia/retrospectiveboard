@@ -3,7 +3,6 @@ import Header from './Header';
 import TeamBoard from './TeamBoard'
 import Popup from './Popup'
 import {Button} from 'react-bootstrap'
-import * as api from '../api';
 
 class App extends React.Component {
   state = {
@@ -16,20 +15,14 @@ class App extends React.Component {
      showPopup: !this.state.showPopup
    });
  }
-  componentDidMount() {
-    api.fetchTeams().then(teams=>{
-      this.setState({
-        teams: teams
-          })
-    })
-  }
+
   componentWillUnmount() {
     // clean timers, listeners
   }
   render() {
     return (
       <div className="App">
-        <Header message={this.state.pageHeader} />
+        <Header message={this.state.pageHeader}  />
         <TeamBoard category={this.state.category}/>
         <div>
         <Button className="add_card" onClick={this.togglePopup.bind(this) } size="lg" >+</Button>

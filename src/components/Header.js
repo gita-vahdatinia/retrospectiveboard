@@ -1,16 +1,30 @@
 import React from 'react';
-import {Navbar, Nav} from 'react-bootstrap';
-
-const Header = ({ teams, message }) => {
-  return (
+import {Navbar, Nav, NavDropdown} from 'react-bootstrap';
+import * as api from '../api';
+class Header extends React.Component {
+  state = {
+    teams: []
+  }
+  componentDidMount() {
+    api.fetchTeams().then(teams => {
+      this.setState({
+        teams
+      })
+    })
+  }
+  render() {
+    return (
     <div>
       <Navbar bg="dark" variant="dark">
-        <Navbar.Brand href="#home">
-          {message}
-        </Navbar.Brand>
+        <NavDropdown title="Teams"id="basic-nav-dropdown">
+          {this.state.teams.map(team=>
+            <NavDropdown.Item href="#">
+              {team}</NavDropdown.Item>)}
+        </NavDropdown>
       </Navbar>
     </div>
   );
+  }
 };
 
 
