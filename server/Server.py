@@ -19,18 +19,35 @@ table = dynamodb.Table('SprintRetro')
 def get_teams():
     try:
         response = table.scan()
-        lst = []
-        for i in response['Items']:
-            lst.append(i['team_name'])
+        print(response)
+
+        list_of_teams = []
+        #list_of_teams = [item['team_name'].encode('utf-8') for item in response['Items'] if item['team_name'].encode('utf-8') not in list_of_teams]
+
+        for item in response['Items']: 
+            if item['team_name'].encode('utf-8') not in list_of_teams:
+                list_of_teams.append(item['team_name'].encode('utf-8'))
     except ClientError as e:
         print(e.response['Error']['Message'])
     else:
-        return jsonify(lst)
+        #return jsonify(lst)
+        return jsonify(list_of_teams)
 
+@app.route('/<team>/sprint')
+def get_team_sprints(team):
+    try:
+        response = table.scan()
+
+        list_of_sprints = [item['sprint_no'].encode('utf-8') for item in response['Items'] if item['team_name'].encode('utf-8') == str(team)]
+
+    except ClientError as e:
+        print(e.response)
+    else:
+        return jsonify(list_of_sprints)
 
 @app.route('/')
 def get_pulse():
-    return ACTIVE_STATE
+    return 'hey'
 
 
 if __name__ == '__main__':
