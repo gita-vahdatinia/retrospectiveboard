@@ -13,6 +13,7 @@ app = Flask(__name__)
 CORS(app)
 dynamodb = boto3.resource("dynamodb", region_name='us-east-1')
 table = dynamodb.Table('SprintRetro')
+ACTIVE_STATE = 'alive!'
 
 @app.route('/teams')
 def get_teams():
@@ -21,7 +22,7 @@ def get_teams():
 
         list_of_teams = []
 
-        for item in response['Items']: 
+        for item in response['Items']:
             if item['team_name'].encode('utf-8') not in list_of_teams:
                 list_of_teams.append(item['team_name'].encode('utf-8'))
 
@@ -30,6 +31,7 @@ def get_teams():
 
     else:
         return jsonify(list_of_teams)
+
 
 @app.route('/<team>/sprint')
 def get_team_sprints(team):
@@ -44,11 +46,11 @@ def get_team_sprints(team):
     else:
         return jsonify(list_of_sprints)
 
+
 @app.route('/<team>/<sprint_no>/well')
 def get_sprint_good(team, sprint_no):
     try:
         response = table.scan()
-
         the_good = [item['well'] for item in response['Items'] if item['team_name'].encode('utf-8') == team and item['sprint_no'].encode('utf-8') == sprint_no if 'well' in item]
     
     except ClientError as e:
@@ -57,18 +59,19 @@ def get_sprint_good(team, sprint_no):
     else:
         return jsonify(the_good)
 
+
 @app.route('/<team>/<sprint_no>/bad')
 def get_sprint_bad(team, sprint_no):
     try:
         response = table.scan()
-
         the_bad = [item['bad'] for item in response['Items'] if item['team_name'].encode('utf-8') == team and item['sprint_no'].encode('utf-8') == sprint_no if 'bad' in item]
-    
+
     except ClientError as e:
         print(e.response['Error']['Message'])
 
     else:
         return jsonify(the_bad)
+
 
 @app.route('/<team>/<sprint_no>/action')
 def get_sprint_action(team, sprint_no):
@@ -82,6 +85,7 @@ def get_sprint_action(team, sprint_no):
 
     else:
         return jsonify(the_action)
+
 
 @app.route('/post/<team>/<sprint_no>/<retro_type>')
 def post_retro_items(team, sprint_no, retro_type):
@@ -114,6 +118,7 @@ def post_retro_items(team, sprint_no, retro_type):
     
     else:
         return "return statement"
+
 
 @app.route('/')
 def get_pulse():

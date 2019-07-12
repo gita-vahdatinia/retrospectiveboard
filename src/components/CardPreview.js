@@ -3,11 +3,8 @@ import {Card} from 'react-bootstrap'
 
 const CardPreview = (category ) => (
   <div className="issues">
-    <Card border="dark" >
-      <Card.Header>
-        {category.categoryName}
-      </Card.Header>
-      <Card.Body>
+    <Card>
+      <Card.Body className="card_body">
         {category.categoryDescription}
       </Card.Body>
     </Card>
