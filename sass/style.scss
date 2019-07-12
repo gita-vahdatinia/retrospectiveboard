@@ -42,3 +42,30 @@
   border-radius: 20px;
   background: white;
 }
+// font-family: 'Roboto', sans-serif;
+// font-family: 'Rubik', sans-serif;
+// font-family: 'Work Sans', sans-serif;
+// font-family: 'Pacifico', cursive;
+// font-family: 'Rubik Mono One', sans-serif;
+
+.navbar{
+  border-radius: 0;
+  font-size: 1.5em;
+  font-family: 'Roboto', sans-serif;
+  background-color: #d9a7c7;
+  .dropdown-toggle{
+    color: #fffcdc;
+  }
+  .title{
+    font-family: 'Pacifico', cursive;
+    font-size: 1.5em;
+  }
+  .dropdown-menu{
+    background-color: #fffcdc;
+    font-size: .8em;
+
+  }
+  .dropdown-item{
+    color: #000;
+  }
+}

@@ -13,6 +13,7 @@ app = Flask(__name__)
 CORS(app)
 dynamodb = boto3.resource("dynamodb", region_name='us-east-1')
 table = dynamodb.Table('SprintRetro')
+ACTIVE_STATE = 'alive!'
 
 
 @app.route('/teams')

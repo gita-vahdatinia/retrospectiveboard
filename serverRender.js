@@ -15,15 +15,4 @@ const serverRender = () =>
       };
     });
 
-const getTeams = () =>
-  axios.get(`${config.serverUrl}/api/teams`)
-    .then(resp => {
-      return {
-        initialMarkup: ReactDOMServer.renderToString(
-          <Header teams={resp.data.teams} />
-        ),
-        intialTeams: resp.data
-      }
-    })
-
-export default serverRender;
+export default serverRender

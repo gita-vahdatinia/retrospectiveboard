@@ -3,6 +3,7 @@ import Header from './Header';
 import TeamBoard from './TeamBoard'
 import Popup from './Popup'
 import {Button} from 'react-bootstrap'
+
 class App extends React.Component {
   state = {
     pageHeader: 'Retrospective',
@@ -14,16 +15,14 @@ class App extends React.Component {
      showPopup: !this.state.showPopup
    });
  }
-  componentDidMount() {
 
-  }
   componentWillUnmount() {
     // clean timers, listeners
   }
   render() {
     return (
       <div className="App">
-        <Header message={this.state.pageHeader} />
+        <Header message={this.state.pageHeader}  />
         <TeamBoard category={this.state.category}/>
         <div>
         <Button className="add_card" onClick={this.togglePopup.bind(this) } size="lg" >+</Button>
