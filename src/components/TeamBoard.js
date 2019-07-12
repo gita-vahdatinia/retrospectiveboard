@@ -1,18 +1,31 @@
 import React from 'react';
 import CardPreview from './CardPreview'
-import {Container, Row, Col, Card,Button} from 'react-bootstrap';
+import {Container, Row, Col, Card,Button, OverlayTrigger} from 'react-bootstrap';
 import Popup from './Popup'
 
 class TeamBoard extends React.Component{
   state = {
     category : this.props.category,
-    showPopup: false
+    showWellPopup: false,
+    showBadPopup: false,
+    showImprovePopup: false,
+
   }
-  togglePopup() {
+  toggleWellPopup() {
    this.setState({
-     showPopup: !this.state.showPopup
+     showWellPopup: !this.state.showWellPopup
    });
  }
+ toggleBadPopup() {
+  this.setState({
+    showBadPopup: !this.state.showBadPopup
+  });
+}
+toggleImprovePopup() {
+ this.setState({
+   showImprovePopup: !this.state.showImprovePopup
+ });
+}
     render() {
       var well = this.state.category.filter(cat =>
         (cat.categoryName == "Well"))
@@ -29,15 +42,14 @@ class TeamBoard extends React.Component{
         <Row>
           <Col s={12} md={4}>
             <Card>
-              
-              {this.state.showPopup ?
+              {this.state.showWellPopup ?
                <Popup
                 text='Click "Close Button" to hide popup'
-                closePopup={this.togglePopup.bind(this)}
+                closePopup={this.toggleWellPopup.bind(this)}
                />
                : null
               }
-              <Card.Body className="card_title" onClick={this.togglePopup.bind(this) } >
+              <Card.Body className="card_title" onClick={this.toggleWellPopup.bind(this) } >
                 Went Well
               </Card.Body>
             </Card>
@@ -49,14 +61,14 @@ class TeamBoard extends React.Component{
           </Col>
           <Col s={12} md={4}>
             <Card>
-              {this.state.showPopup ?
+              {this.state.showBadPopup ?
                <Popup
                 text='Click "Close Button" to hide popup'
-                closePopup={this.togglePopup.bind(this)}
+                closePopup={this.toggleBadPopup.bind(this)}
                />
                : null
               }
-              <Card.Body className="card_title" onClick={this.togglePopup.bind(this) } >
+              <Card.Body className="card_title" onClick={this.toggleBadPopup.bind(this) } >
               Improve On
               </Card.Body>
             </Card>
@@ -68,14 +80,14 @@ class TeamBoard extends React.Component{
           </Col>
           <Col s={12} md={4}>
             <Card>
-              {this.state.showPopup ?
+              {this.state.showImprovePopup ?
                <Popup
                 text='Click "Close Button" to hide popup'
-                closePopup={this.togglePopup.bind(this)}
+                closePopup={this.toggleImprovePopup.bind(this)}
                />
                : null
               }
-              <Card.Body className="card_title" onClick={this.togglePopup.bind(this) } >
+              <Card.Body className="card_title" onClick={this.toggleImprovePopup.bind(this) } >
               Improve On
               </Card.Body>
             </Card>

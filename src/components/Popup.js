@@ -4,19 +4,17 @@ import {Button, FormControl, Dropdown, Card, Form} from 'react-bootstrap'
 class Popup extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {value: ""};
-
+    this.state = {value: ''};
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   handleSubmit(event) {
     alert('A name was submitted: ' + this.state.value);
+    this.setState({value: this.state.value});
     event.preventDefault();
   }
  handleChange(event) {
-   if (event.target.value != ""){
    this.setState({value: event.target.value});
-  }
  }
 
   render() {
