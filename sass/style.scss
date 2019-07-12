@@ -1,25 +1,12 @@
-.issues {
-  border-bottom: 1px solid #ccc;
-  font-weight: bold;
-  margin: 1em;
-  background-color: #eee;
-}
-
-.Card{
-    .card_title{
-      font-size: 3em;
-      color: white;
-      text-align: center;
-      font-family: sans-serif;
-    }
-}
-
-.add_card{
-  font-family: monospace;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-}
+// font-family: 'Roboto', sans-serif;
+// font-family: 'Rubik', sans-serif;
+// font-family: 'Work Sans', sans-serif;
+// font-family: 'Pacifico', cursive;
+// font-family: 'Rubik Mono One', sans-serif;
+// pink: #ffdcdf
+// yellow: #fffcdc
+// blue: #dcfffc
+// purple: #dcdfff
 
 .popup {
   position: fixed;
@@ -30,23 +17,57 @@
   right: 0;
   bottom: 0;
   margin: auto;
-  background-color: rgba(0,0,0, 0.5);
+  z-index: 1;
+  background: rgba(0,0,0,.3);
 }
+
 .popup_inner {
   position: absolute;
   left: 25%;
   right: 25%;
   top: 25%;
-  bottom: 25%;
+  bottom: 40%;
   margin: auto;
-  border-radius: 20px;
   background: white;
 }
-// font-family: 'Roboto', sans-serif;
-// font-family: 'Rubik', sans-serif;
-// font-family: 'Work Sans', sans-serif;
-// font-family: 'Pacifico', cursive;
-// font-family: 'Rubik Mono One', sans-serif;
+.Card{
+    .card_title{
+      font-size: 3em;
+      color: black;
+      text-align: center;
+      font-family: 'Rubik', sans-serif;
+    }
+    border: none;
+    background-color: #fffaf0;
+
+}
+.card_body{
+  font-size: 1.2em;
+  -webkit-box-shadow: none;
+  border-radius: 3em;
+  border: 1em;
+  border-radius: 3em;
+  margin-top: 1em;
+  margin-left: 1.5em;
+  margin-right: 1.5em;
+  &.good{
+    border: 2px solid green;
+  }
+  &.improve{
+    border: 2px solid red;
+  }
+  &.action{
+    border: 2px solid yellow;
+  }
+}
+
+.add_card{
+  font-family: monospace;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
 
 .navbar{
   border-radius: 0;
@@ -63,7 +84,9 @@
   .dropdown-menu{
     background-color: #fffcdc;
     font-size: .8em;
-
+    -webkit-box-shadow: none;
+    border: 1em;
+    min-width: 0;
   }
   .dropdown-item{
     color: #000;

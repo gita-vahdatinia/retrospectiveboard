@@ -1,56 +1,95 @@
 import React from 'react';
 import CardPreview from './CardPreview'
-import {Container, Row, Col, Card} from 'react-bootstrap';
+import {Container, Row, Col, Card,Button} from 'react-bootstrap';
+import Popup from './Popup'
 
-const TeamBoard = ({category})=> {
+class TeamBoard extends React.Component{
+  state = {
+    category : this.props.category,
+    showPopup: false
+  }
+  togglePopup() {
+   this.setState({
+     showPopup: !this.state.showPopup
+   });
+ }
+    render() {
+      var well = this.state.category.filter(cat =>
+        (cat.categoryName == "Well"))
 
-  var well = category.filter(cat =>
-    (cat.categoryName == "Well"))
+      var bad = this.state.category.filter(cat =>
+      (cat.categoryName == "Bad"))
 
-  var bad = category.filter(cat =>
-  (cat.categoryName == "Bad"))
-
-  var action = category.filter(cat => (
-    cat.categoryName =="Action"))
+      var action = this.state.category.filter(cat => (
+        cat.categoryName =="Action"))
 
     return (
       <div>
         <Container fluid={true}>
         <Row>
           <Col s={12} md={4}>
-            <Card bg="success" >
-              <Card.Body className="card_title">
+            <Card>
+              
+              {this.state.showPopup ?
+               <Popup
+                text='Click "Close Button" to hide popup'
+                closePopup={this.togglePopup.bind(this)}
+               />
+               : null
+              }
+              <Card.Body className="card_title" onClick={this.togglePopup.bind(this) } >
                 Went Well
               </Card.Body>
             </Card>
               {well.map(cat =>
-                <CardPreview key={cat.id} {...cat} />
+                <Card.Body className="card_body good">
+                  {cat.categoryDescription}
+                </Card.Body>
               )}
           </Col>
           <Col s={12} md={4}>
-            <Card bg="warning" >
-              <Card.Body className="card_title">
-                Improve On
+            <Card>
+              {this.state.showPopup ?
+               <Popup
+                text='Click "Close Button" to hide popup'
+                closePopup={this.togglePopup.bind(this)}
+               />
+               : null
+              }
+              <Card.Body className="card_title" onClick={this.togglePopup.bind(this) } >
+              Improve On
               </Card.Body>
             </Card>
-            {bad.map(cat =>
-              <CardPreview key={cat.id} {...cat} />
-            )}
+              {bad.map(cat =>
+                <Card.Body className="card_body improve">
+                  {cat.categoryDescription}
+                </Card.Body>
+              )}
           </Col>
           <Col s={12} md={4}>
-            <Card bg="info" >
-                <Card.Body className="card_title">
-                  Action Items
-                </Card.Body>
+            <Card>
+              {this.state.showPopup ?
+               <Popup
+                text='Click "Close Button" to hide popup'
+                closePopup={this.togglePopup.bind(this)}
+               />
+               : null
+              }
+              <Card.Body className="card_title" onClick={this.togglePopup.bind(this) } >
+              Improve On
+              </Card.Body>
             </Card>
             {action.map(cat =>
-              <CardPreview key={cat.id} {...cat} />
+              <Card.Body className="card_body action">
+                {cat.categoryDescription}
+              </Card.Body>
             )}
           </Col>
         </Row>
         </Container>
       </div>
     );
+  }
 }
 
 export default TeamBoard;
