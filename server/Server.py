@@ -14,7 +14,6 @@ CORS(app)
 dynamodb = boto3.resource("dynamodb", region_name='us-east-1')
 table = dynamodb.Table('SprintRetro')
 
-
 @app.route('/teams')
 def get_teams():
     try:
@@ -30,7 +29,6 @@ def get_teams():
         print(e.response['Error']['Message'])
 
     else:
-        #return jsonify(lst)
         return jsonify(list_of_teams)
 
 @app.route('/<team>/sprint')
@@ -51,10 +49,7 @@ def get_sprint_good(team, sprint_no):
     try:
         response = table.scan()
 
-        the_good = [item['well'] for item in response['Items'] 
-                    if item['team_name'].encode('utf-8') == team and 
-                        item['sprint_no'].encode('utf-8') == sprint_no
-                        if 'well' in item]
+        the_good = [item['well'] for item in response['Items'] if item['team_name'].encode('utf-8') == team and item['sprint_no'].encode('utf-8') == sprint_no if 'well' in item]
     
     except ClientError as e:
         print(e.response['Error']['Message'])
@@ -67,9 +62,7 @@ def get_sprint_bad(team, sprint_no):
     try:
         response = table.scan()
 
-        the_bad = [item['bad'] for item in response['Items'] 
-                    if item['team_name'].encode('utf-8') == team and item['sprint_no'].encode('utf-8') == sprint_no
-                    if 'bad' in item]
+        the_bad = [item['bad'] for item in response['Items'] if item['team_name'].encode('utf-8') == team and item['sprint_no'].encode('utf-8') == sprint_no if 'bad' in item]
     
     except ClientError as e:
         print(e.response['Error']['Message'])
@@ -82,15 +75,45 @@ def get_sprint_action(team, sprint_no):
     try:
         response = table.scan()
 
-        the_action = [item['action'] for item in response['Items'] 
-                    if item['team_name'].encode('utf-8') == team and item['sprint_no'].encode('utf-8') == sprint_no
-                    if 'action' in item]
+        the_action = [item['action'] for item in response['Items'] if item['team_name'].encode('utf-8') == team and item['sprint_no'].encode('utf-8') == sprint_no if 'action' in item]
     
     except ClientError as e:
         print(e.response['Error']['Message'])
 
     else:
         return jsonify(the_action)
+
+@app.route('/post/<team>/<sprint_no>/<retro_type>')
+def post_retro_items(team, sprint_no, retro_type):
+    try:
+        if retro_type == 'well':
+            update_expression = "SET well = list_append(well, :well)"
+            expression_attr_val = {':well': ['test']}
+
+        elif retro_type == 'bad':
+            update_expression = "SET bad = list_append(bad, :bad)"
+            expression_attr_val = {':bad': ['test']}
+
+        
+        elif retro_type == 'action':
+            update_expression = "SET action = list_append(action, :action)"   
+            expression_attr_val = {':action': ['test']}
+
+        table.update_item(
+            Key={
+                'team_name': team,
+                'sprint_no': sprint_no
+            },
+            UpdateExpression=update_expression,
+            ExpressionAttributeValues=expression_attr_val
+        )
+
+    except ClientError as e:
+       # print(e)
+        print(e.response['Error']['Message'])
+    
+    else:
+        return "return statement"
 
 @app.route('/')
 def get_pulse():
