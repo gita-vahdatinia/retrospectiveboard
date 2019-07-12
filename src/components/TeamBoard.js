@@ -29,14 +29,15 @@ class TeamBoard extends React.Component{
         <Row>
           <Col s={12} md={4}>
             <Card>
+              
+              {this.state.showPopup ?
+               <Popup
+                text='Click "Close Button" to hide popup'
+                closePopup={this.togglePopup.bind(this)}
+               />
+               : null
+              }
               <Card.Body className="card_title" onClick={this.togglePopup.bind(this) } >
-                {this.state.showPopup ?
-                 <Popup
-                  text='Click "Close Button" to hide popup'
-                  closePopup={this.togglePopup.bind(this)}
-                 />
-                 : null
-                }
                 Went Well
               </Card.Body>
             </Card>
@@ -47,22 +48,36 @@ class TeamBoard extends React.Component{
               )}
           </Col>
           <Col s={12} md={4}>
-            <Card >
-              <Card.Body className="card_title">
-                Improve On
+            <Card>
+              {this.state.showPopup ?
+               <Popup
+                text='Click "Close Button" to hide popup'
+                closePopup={this.togglePopup.bind(this)}
+               />
+               : null
+              }
+              <Card.Body className="card_title" onClick={this.togglePopup.bind(this) } >
+              Improve On
               </Card.Body>
             </Card>
-            {bad.map(cat =>
-              <Card.Body className="card_body improve">
-                {cat.categoryDescription}
-              </Card.Body>
-            )}
+              {bad.map(cat =>
+                <Card.Body className="card_body improve">
+                  {cat.categoryDescription}
+                </Card.Body>
+              )}
           </Col>
           <Col s={12} md={4}>
-            <Card >
-                <Card.Body className="card_title">
-                  Action Items
-                </Card.Body>
+            <Card>
+              {this.state.showPopup ?
+               <Popup
+                text='Click "Close Button" to hide popup'
+                closePopup={this.togglePopup.bind(this)}
+               />
+               : null
+              }
+              <Card.Body className="card_title" onClick={this.togglePopup.bind(this) } >
+              Improve On
+              </Card.Body>
             </Card>
             {action.map(cat =>
               <Card.Body className="card_body action">
