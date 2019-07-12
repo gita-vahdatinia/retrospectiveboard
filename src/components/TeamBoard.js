@@ -37,7 +37,6 @@ class TeamBoard extends React.Component{
                  />
                  : null
                 }
-
                 Went Well
               </Card.Body>
             </Card>
