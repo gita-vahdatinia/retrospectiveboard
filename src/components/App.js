@@ -20,7 +20,7 @@ class App extends React.Component {
   componentWillUnmount() {
     // clean timers, listeners
   }
-  onselectTeam = (team) =>{
+  onselectTeam = (team) => {
     this.setState({ selectTeam: team})
   }
   onselectSprint = (sprint) =>{

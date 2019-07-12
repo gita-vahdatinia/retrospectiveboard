@@ -33,6 +33,7 @@ class TeamBoard extends React.Component{
      showImprovePopup: !this.state.showImprovePopup
    });
   }
+
   componentDidUpdate(prevProps) {
     if(!equal(this.props.sprint, prevProps.sprint)) // Check if it's a new user, you can also use some unique property, like the ID  (this.props.user.id !== prevProps.user.id)
     {
@@ -73,6 +74,7 @@ class TeamBoard extends React.Component{
                 text='Click "Close Button" to hide popup'
                 closePopup={this.toggleWellPopup.bind(this)}
                 category ={"well"}
+
                />
                : null
               }

@@ -15,6 +15,7 @@ dynamodb = boto3.resource("dynamodb", region_name='us-east-1')
 table = dynamodb.Table('SprintRetro')
 ACTIVE_STATE = 'alive!'
 
+
 @app.route('/teams')
 def get_teams():
     try:
@@ -52,7 +53,7 @@ def get_sprint_good(team, sprint_no):
     try:
         response = table.scan()
         the_good = [item['well'] for item in response['Items'] if item['team_name'].encode('utf-8') == team and item['sprint_no'].encode('utf-8') == sprint_no if 'well' in item]
-    
+
     except ClientError as e:
         print(e.response['Error']['Message'])
 
@@ -79,7 +80,7 @@ def get_sprint_action(team, sprint_no):
         response = table.scan()
 
         the_action = [item['action'] for item in response['Items'] if item['team_name'].encode('utf-8') == team and item['sprint_no'].encode('utf-8') == sprint_no if 'action' in item]
-    
+
     except ClientError as e:
         print(e.response['Error']['Message'])
 
@@ -87,22 +88,18 @@ def get_sprint_action(team, sprint_no):
         return jsonify(the_action)
 
 
-@app.route('/post/<team>/<sprint_no>/<retro_type>')
-def post_retro_items(team, sprint_no, retro_type):
+@app.route('/post/<team>/<sprint_no>/<retro_type>/<description>')
+def post_retro_items(team, sprint_no, retro_type, description):
     try:
         if retro_type == 'well':
             update_expression = "SET well = list_append(well, :well)"
-            expression_attr_val = {':well': ['test']}
-
+            expression_attr_val = {':well': [description]}
         elif retro_type == 'bad':
             update_expression = "SET bad = list_append(bad, :bad)"
             expression_attr_val = {':bad': ['test']}
-
-        
         elif retro_type == 'action':
-            update_expression = "SET action = list_append(action, :action)"   
-            expression_attr_val = {':action': ['test']}
-
+            update_expression = "SET action = list_append(action, :action)"
+            expression_attr_val = {':action': [description]}
         table.update_item(
             Key={
                 'team_name': team,
@@ -111,11 +108,10 @@ def post_retro_items(team, sprint_no, retro_type):
             UpdateExpression=update_expression,
             ExpressionAttributeValues=expression_attr_val
         )
-
     except ClientError as e:
-       # print(e)
+        # print(e)
         print(e.response['Error']['Message'])
-    
+        return (e.response['Error']['Message'])
     else:
         return "return statement"
 

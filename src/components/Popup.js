@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, FormControl, Dropdown, Card, Form } from "react-bootstrap";
+import * as api from '../api';
 
 class Popup extends React.Component {
   constructor(props) {
@@ -9,10 +10,11 @@ class Popup extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   handleSubmit(event) {
-    this.setState({ value: this.state.value });
     event.preventDefault();
+    this.setState({ value: this.state.value });
   }
   handleChange(event) {
+    event.preventDefault();
     this.setState({ value: event.target.value });
   }
 
