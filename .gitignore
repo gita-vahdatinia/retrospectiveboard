@@ -41,3 +41,7 @@ public/style.css
 
 #python
 server/__pycache__
+server/config.pyc
+
+#misc
+package-lock.json
