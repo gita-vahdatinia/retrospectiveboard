@@ -2,6 +2,9 @@ import React from 'react';
 import CardPreview from './CardPreview'
 import {Container, Row, Col, Card,Button, OverlayTrigger} from 'react-bootstrap';
 import Popup from './Popup'
+import * as api from '../api';
+import equal from 'fast-deep-equal'
+
 
 class TeamBoard extends React.Component{
   state = {
@@ -10,7 +13,10 @@ class TeamBoard extends React.Component{
     showBadPopup: false,
     showImprovePopup: false,
     team: this.props.team,
-    sprint: this.props.sprint
+    sprint: this.props.sprint,
+    well: [],
+    bad: [],
+    action: []
   }
   toggleWellPopup() {
    this.setState({
@@ -27,12 +33,31 @@ class TeamBoard extends React.Component{
      showImprovePopup: !this.state.showImprovePopup
    });
   }
+  componentDidUpdate(prevProps) {
+    if(!equal(this.props.sprint, prevProps.sprint)) // Check if it's a new user, you can also use some unique property, like the ID  (this.props.user.id !== prevProps.user.id)
+    {
+      api.fetchBad(this.props.team, this.props.sprint).then(bad_items =>{
+        this.setState({
+          bad: bad_items
+        })
+      })
+      api.fetchWell(this.props.team, this.props.sprint).then(well_items =>{
+        this.setState({
+          well: well_items
+        })
+      })
+      api.fetchAction(this.props.team, this.props.sprint).then(action_items =>{
+        this.setState({
+          action: action_items
+        })
+      })
+      }
+
+  }
     render() {
       var well = this.state.category.filter(cat =>
         (cat.categoryName == "Well"))
 
-      var bad = this.state.category.filter(cat =>
-      (cat.categoryName == "Bad"))
 
       var action = this.state.category.filter(cat => (
         cat.categoryName =="Action"))
@@ -55,9 +80,9 @@ class TeamBoard extends React.Component{
                 Went Well
               </Card.Body>
             </Card>
-              {well.map(cat =>
+              {this.state.well.map(cat =>
                 <Card.Body className="card_body good">
-                  {cat.categoryDescription}
+                  {cat}
                 </Card.Body>
               )}
           </Col>
@@ -75,9 +100,9 @@ class TeamBoard extends React.Component{
               Improve On
               </Card.Body>
             </Card>
-              {bad.map(cat =>
+              {this.state.bad.map(cat =>
                 <Card.Body className="card_body improve">
-                  {cat.categoryDescription}
+                  {cat}
                 </Card.Body>
               )}
           </Col>
@@ -95,9 +120,9 @@ class TeamBoard extends React.Component{
               Action Items
               </Card.Body>
             </Card>
-            {action.map(cat =>
+            {this.state.action.map(cat =>
               <Card.Body className="card_body action">
-                {cat.categoryDescription}
+                {cat}
               </Card.Body>
             )}
           </Col>

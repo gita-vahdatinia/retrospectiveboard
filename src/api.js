@@ -13,3 +13,15 @@ export const fetchSprint = (team) => {
       return instance.get(`/${team}/sprint`)
         .then(resp => [...new Set(resp.data)])
 }
+export const fetchWell = (team, sprint) => {
+  return instance.get(`/${team}/${sprint}/well`)
+    .then(resp => [...new Set(resp.data)])
+}
+export const fetchBad = (team, sprint) => {
+  return instance.get(`/${team}/${sprint}/bad`)
+    .then(resp => [...new Set(resp.data)])
+}
+export const fetchAction = (team, sprint) => {
+  return instance.get(`/${team}/${sprint}/action`)
+    .then(resp => [...new Set(resp.data)])
+}

@@ -20,9 +20,13 @@ class Header extends React.Component {
     })
   }
   changeTeam = (team) => {
-    this.setState({
-      selected_team: team.team
+    api.fetchSprint(team.team).then(sprints =>{
+      this.setState({
+        sprints: sprints,
+        selected_team: team.team
+      })
     })
+    this.props.selectedSprint(this.state.sprints);
     this.props.selectedTeam(team.team);
   }
   changeSprint(sprint){
