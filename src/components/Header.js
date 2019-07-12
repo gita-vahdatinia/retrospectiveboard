@@ -15,8 +15,11 @@ class Header extends React.Component {
   render() {
     return (
     <div>
-      <Navbar bg="dark" variant="dark">
-        <NavDropdown title="Teams"id="basic-nav-dropdown">
+      <Navbar>
+        <Navbar.Brand href="#home" className="title">
+          Retro
+        </Navbar.Brand>
+        <NavDropdown title="Teams" id="basic-nav-dropdown">
           {this.state.teams.map(team=>
             <NavDropdown.Item href="#">
               {team}</NavDropdown.Item>)}

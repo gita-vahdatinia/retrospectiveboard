@@ -4,7 +4,8 @@ const instance = axios.create({
   baseURL: "http://0.0.0.0:5000/"
 })
 
+//Return as set so removes duplicates
 export const fetchTeams = () => {
       return instance.get('/teams')
-        .then(resp => resp.data)
+        .then(resp => [...new Set(resp.data)])
 }

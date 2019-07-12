@@ -29,10 +29,6 @@ module.exports = {
         { loader: 'style-loader', options: {insertAt: 'top'}, },
         { loader: 'css-loader', options:{sourceMap: true}, },
       ]
-    },
-    {
-      test: /\.(jpe?g|png|gif|ico)$/i,
-      loader: 'file?name=[name].[ext]'
     }
     ]
   }

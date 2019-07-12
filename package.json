@@ -7,6 +7,26 @@
     "start": "nodemon --exec babel-node server.js --ignore public/",
     "dev": "webpack -wd"
   },
+  "jest": {
+    "modulePaths": [
+      "/shared/vendor/modules"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "jsx"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "bower_components",
+      "shared"
+    ],
+    "moduleNameMapper": {
+      "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js",
+      "\\.(gif|ttf|eot|svg)$": "<rootDir>/__mocks__/fileMock.js",
+      "^react(.*)$": "<rootDir>/vendor/react-master$1",
+      "^config$": "<rootDir>/configs/app-config.js"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.freewheel.tv/zbhinderwala/ITO-194.git"
@@ -20,6 +40,8 @@
   "dependencies": {
     "aws-sdk": "^2.492.0",
     "axios": "^0.18.0",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "babel-preset-env": "^1.7.0",
     "body-parser": "^1.18.3",
     "bootstrap": "^4.3.1",
     "chart.js": "^2.8.0",
@@ -47,6 +69,9 @@
     "eslint": "^5.12.1",
     "eslint-plugin-react": "^7.12.4",
     "file-loader": "^4.0.0",
+    "image-webpack-loader": "^5.0.0",
+    "jest": "^24.8.0",
+    "jest-transform-stub": "^2.0.0",
     "nodemon": "^1.18.9",
     "url-loader": "^2.0.1",
     "webpack": "^4.29.0",
