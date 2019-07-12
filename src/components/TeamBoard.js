@@ -1,24 +1,63 @@
 import React from 'react';
 import CardPreview from './CardPreview'
-import {Container, Row, Col, Card,Button} from 'react-bootstrap';
+import {Container, Row, Col, Card,Button, OverlayTrigger} from 'react-bootstrap';
 import Popup from './Popup'
+import * as api from '../api';
+import equal from 'fast-deep-equal'
+
 
 class TeamBoard extends React.Component{
   state = {
     category : this.props.category,
-    showPopup: false
+    showWellPopup: false,
+    showBadPopup: false,
+    showImprovePopup: false,
+    team: this.props.team,
+    sprint: this.props.sprint,
+    well: [],
+    bad: [],
+    action: []
   }
-  togglePopup() {
+  toggleWellPopup() {
    this.setState({
-     showPopup: !this.state.showPopup
+     showWellPopup: !this.state.showWellPopup
    });
  }
+ toggleBadPopup() {
+  this.setState({
+    showBadPopup: !this.state.showBadPopup
+  });
+}
+  toggleImprovePopup() {
+   this.setState({
+     showImprovePopup: !this.state.showImprovePopup
+   });
+  }
+  componentDidUpdate(prevProps) {
+    if(!equal(this.props.sprint, prevProps.sprint)) // Check if it's a new user, you can also use some unique property, like the ID  (this.props.user.id !== prevProps.user.id)
+    {
+      api.fetchBad(this.props.team, this.props.sprint).then(bad_items =>{
+        this.setState({
+          bad: bad_items
+        })
+      })
+      api.fetchWell(this.props.team, this.props.sprint).then(well_items =>{
+        this.setState({
+          well: well_items
+        })
+      })
+      api.fetchAction(this.props.team, this.props.sprint).then(action_items =>{
+        this.setState({
+          action: action_items
+        })
+      })
+      }
+
+  }
     render() {
       var well = this.state.category.filter(cat =>
         (cat.categoryName == "Well"))
 
-      var bad = this.state.category.filter(cat =>
-      (cat.categoryName == "Bad"))
 
       var action = this.state.category.filter(cat => (
         cat.categoryName =="Action"))
@@ -29,59 +68,61 @@ class TeamBoard extends React.Component{
         <Row>
           <Col s={12} md={4}>
             <Card>
-              
-              {this.state.showPopup ?
+              {this.state.showWellPopup ?
                <Popup
                 text='Click "Close Button" to hide popup'
-                closePopup={this.togglePopup.bind(this)}
+                closePopup={this.toggleWellPopup.bind(this)}
+                category ={"well"}
                />
                : null
               }
-              <Card.Body className="card_title" onClick={this.togglePopup.bind(this) } >
+              <Card.Body className="card_title" onClick={this.toggleWellPopup.bind(this) } >
                 Went Well
               </Card.Body>
             </Card>
-              {well.map(cat =>
+              {this.state.well.map(cat =>
                 <Card.Body className="card_body good">
-                  {cat.categoryDescription}
+                  {cat}
                 </Card.Body>
               )}
           </Col>
           <Col s={12} md={4}>
             <Card>
-              {this.state.showPopup ?
+              {this.state.showBadPopup ?
                <Popup
                 text='Click "Close Button" to hide popup'
-                closePopup={this.togglePopup.bind(this)}
+                closePopup={this.toggleBadPopup.bind(this)}
+                category ={"bad"}
                />
                : null
               }
-              <Card.Body className="card_title" onClick={this.togglePopup.bind(this) } >
+              <Card.Body className="card_title" onClick={this.toggleBadPopup.bind(this) } >
               Improve On
               </Card.Body>
             </Card>
-              {bad.map(cat =>
+              {this.state.bad.map(cat =>
                 <Card.Body className="card_body improve">
-                  {cat.categoryDescription}
+                  {cat}
                 </Card.Body>
               )}
           </Col>
           <Col s={12} md={4}>
             <Card>
-              {this.state.showPopup ?
+              {this.state.showImprovePopup ?
                <Popup
                 text='Click "Close Button" to hide popup'
-                closePopup={this.togglePopup.bind(this)}
+                closePopup={this.toggleImprovePopup.bind(this)}
+                category ={"improve"}
                />
                : null
               }
-              <Card.Body className="card_title" onClick={this.togglePopup.bind(this) } >
-              Improve On
+              <Card.Body className="card_title" onClick={this.toggleImprovePopup.bind(this) } >
+              Action Items
               </Card.Body>
             </Card>
-            {action.map(cat =>
+            {this.state.action.map(cat =>
               <Card.Body className="card_body action">
-                {cat.categoryDescription}
+                {cat}
               </Card.Body>
             )}
           </Col>
