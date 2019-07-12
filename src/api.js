@@ -6,6 +6,10 @@ const instance = axios.create({
 
 //Return as set so removes duplicates
 export const fetchTeams = () => {
-      return instance.get('/teams')
+      return instance.get(`/teams`)
+        .then(resp => [...new Set(resp.data)])
+}
+export const fetchSprint = (team) => {
+      return instance.get(`/${team}/sprint`)
         .then(resp => [...new Set(resp.data)])
 }
