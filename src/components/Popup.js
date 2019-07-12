@@ -1,6 +1,5 @@
 import React from "react";
 import { Button, FormControl, Dropdown, Card, Form } from "react-bootstrap";
-import * as api from '../api';
 
 class Popup extends React.Component {
   constructor(props) {
@@ -11,10 +10,10 @@ class Popup extends React.Component {
   }
   handleSubmit(event) {
     event.preventDefault();
-    this.setState({ value: this.state.value });
+    this.props.sendData(this.state.category, this.state.value);
+    this.props.closePopup();
   }
   handleChange(event) {
-    event.preventDefault();
     this.setState({ value: event.target.value });
   }
 
@@ -22,16 +21,10 @@ class Popup extends React.Component {
     return (
       <Card className="Popup">
         <div className="popup_inner">
-          <Form.Control
-            type="submit"
-            onClick={this.props.closePopup}
-            value="Close"
-            className="close"
-          />
           <Form.Label className="category_label">
             Enter what went {this.state.category} :
           </Form.Label>
-          <Form onSubmit={this.handleSubmit}>
+          <Form onSubmit={this.handleSubmit.bind()}>
             <Form.Group
               type="text"
               value={this.state.value}

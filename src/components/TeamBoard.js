@@ -16,8 +16,16 @@ class TeamBoard extends React.Component{
     sprint: this.props.sprint,
     well: [],
     bad: [],
-    action: []
+    action: [],
+    welldata: "",
+    currentCat: ""
   }
+
+  getDataFromChild = (cat, data) => {
+    this.setState({welldata:data})
+    this.setState({currentCat: cat})
+  }
+
   toggleWellPopup() {
    this.setState({
      showWellPopup: !this.state.showWellPopup
@@ -34,7 +42,8 @@ class TeamBoard extends React.Component{
    });
   }
 
-  componentDidUpdate(prevProps) {
+
+  componentDidUpdate(prevProps, prevState) {
     if(!equal(this.props.sprint, prevProps.sprint)) // Check if it's a new user, you can also use some unique property, like the ID  (this.props.user.id !== prevProps.user.id)
     {
       api.fetchBad(this.props.team, this.props.sprint).then(bad_items =>{
@@ -44,7 +53,7 @@ class TeamBoard extends React.Component{
       })
       api.fetchWell(this.props.team, this.props.sprint).then(well_items =>{
         this.setState({
-          well: well_items
+          well: well_items[0]
         })
       })
       api.fetchAction(this.props.team, this.props.sprint).then(action_items =>{
@@ -54,6 +63,17 @@ class TeamBoard extends React.Component{
       })
       }
 
+      if(!equal(this.state.welldata, prevState.welldata)) // Check if it's a new user, you can also use some unique property, like the ID  (this.props.user.id !== prevProps.user.id)
+      {
+        api.postDescription(this.props.team, this.props.sprint, this.state.currentCat, this.state.welldata).then(value=> {
+          console.log(value)
+          api.fetchWell(this.props.team, this.props.sprint).then(well_items =>{
+            this.setState({
+              well: well_items[0]
+            })
+          })
+        })
+      }
   }
     render() {
       var well = this.state.category.filter(cat =>
@@ -74,7 +94,7 @@ class TeamBoard extends React.Component{
                 text='Click "Close Button" to hide popup'
                 closePopup={this.toggleWellPopup.bind(this)}
                 category ={"well"}
-
+                sendData = {this.getDataFromChild}
                />
                : null
               }

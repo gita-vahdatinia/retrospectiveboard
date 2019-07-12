@@ -27,6 +27,6 @@ export const fetchAction = (team, sprint) => {
 }
 
 export const postDescription = (team, sprint, type, description) =>{
-  return instance.post(`/post/${team}/${sprint}/${type}/${description}`)
+  return instance.get(`/post/${team}/${sprint}/${type}/${description}`)
     .then(resp => resp)
 }
