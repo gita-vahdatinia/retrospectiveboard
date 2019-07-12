@@ -21,7 +21,7 @@ table.put_item(
     }
 )
 '''
-
+'''
 with table.batch_writer() as batch:
     batch.put_item(
         Item={
@@ -41,3 +41,28 @@ with table.batch_writer() as batch:
             'well': 'null'
         }
     )
+'''
+
+table.update_item(
+    Key={
+        'team_name': 'Tools',
+        'sprint_no': '4'
+    },
+    UpdateExpression="SET well = :well",
+    ExpressionAttributeValues={
+        ':well': []
+    }
+)
+
+
+'''
+response = table.get_item(
+    Key={
+        'team_name': 'Klotski',
+        'sprint_no': '4'
+    }
+)
+
+item = response['Item']
+print(item)
+'''
