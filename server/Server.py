@@ -74,12 +74,12 @@ def get_sprint_bad(team, sprint_no):
         return jsonify(the_bad)
 
 
-@app.route('/<team>/<sprint_no>/action')
+@app.route('/<team>/<sprint_no>/todo')
 def get_sprint_action(team, sprint_no):
     try:
         response = table.scan()
 
-        the_action = [item['action'] for item in response['Items'] if item['team_name'].encode('utf-8') == team and item['sprint_no'].encode('utf-8') == sprint_no if 'action' in item]
+        the_action = [item['todo'] for item in response['Items'] if item['team_name'].encode('utf-8') == team and item['sprint_no'].encode('utf-8') == sprint_no if 'todo' in item]
 
     except ClientError as e:
         print(e.response['Error']['Message'])
@@ -96,10 +96,10 @@ def post_retro_items(team, sprint_no, retro_type, description):
             expression_attr_val = {':well': [description]}
         elif retro_type == 'bad':
             update_expression = "SET bad = list_append(bad, :bad)"
-            expression_attr_val = {':bad': ['test']}
-        elif retro_type == 'action':
-            update_expression = "SET action = list_append(action, :action)"
-            expression_attr_val = {':action': [description]}
+            expression_attr_val = {':bad': [description]}
+        elif retro_type == 'todo':
+            update_expression = "SET todo = list_append(todo, :todo)"
+            expression_attr_val = {':todo': [description]}
         table.update_item(
             Key={
                 'team_name': team,

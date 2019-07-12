@@ -22,7 +22,7 @@ export const fetchBad = (team, sprint) => {
     .then(resp => [...new Set(resp.data)])
 }
 export const fetchAction = (team, sprint) => {
-  return instance.get(`/${team}/${sprint}/action`)
+  return instance.get(`/${team}/${sprint}/todo`)
     .then(resp => [...new Set(resp.data)])
 }
 

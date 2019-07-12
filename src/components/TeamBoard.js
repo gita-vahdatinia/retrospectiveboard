@@ -48,7 +48,7 @@ class TeamBoard extends React.Component{
     {
       api.fetchBad(this.props.team, this.props.sprint).then(bad_items =>{
         this.setState({
-          bad: bad_items
+          bad: bad_items[0]
         })
       })
       api.fetchWell(this.props.team, this.props.sprint).then(well_items =>{
@@ -58,7 +58,7 @@ class TeamBoard extends React.Component{
       })
       api.fetchAction(this.props.team, this.props.sprint).then(action_items =>{
         this.setState({
-          action: action_items
+          action: action_items[0]
         })
       })
       }
@@ -72,6 +72,19 @@ class TeamBoard extends React.Component{
               well: well_items[0]
             })
           })
+
+          api.fetchBad(this.props.team, this.props.sprint).then(bad_items =>{
+            this.setState({
+              bad: bad_items[0]
+            })
+          })
+
+          api.fetchAction(this.props.team, this.props.sprint).then(action_items =>{
+            this.setState({
+              action: action_items[0]
+            })
+          })
+
         })
       }
   }
@@ -81,7 +94,7 @@ class TeamBoard extends React.Component{
 
 
       var action = this.state.category.filter(cat => (
-        cat.categoryName =="Action"))
+        cat.categoryName =="To Do"))
 
     return (
       <div>
@@ -115,6 +128,7 @@ class TeamBoard extends React.Component{
                 text='Click "Close Button" to hide popup'
                 closePopup={this.toggleBadPopup.bind(this)}
                 category ={"bad"}
+                sendData = {this.getDataFromChild}
                />
                : null
               }
@@ -134,12 +148,13 @@ class TeamBoard extends React.Component{
                <Popup
                 text='Click "Close Button" to hide popup'
                 closePopup={this.toggleImprovePopup.bind(this)}
-                category ={"improve"}
+                category ={"todo"}
+                sendData = {this.getDataFromChild}
                />
                : null
               }
               <Card.Body className="card_title" onClick={this.toggleImprovePopup.bind(this) } >
-              Action Items
+              To Do
               </Card.Body>
             </Card>
             {this.state.action.map(cat =>
