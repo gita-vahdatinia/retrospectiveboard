@@ -21,11 +21,11 @@ class TeamBoard extends React.Component{
     showBadPopup: !this.state.showBadPopup
   });
 }
-toggleImprovePopup() {
- this.setState({
-   showImprovePopup: !this.state.showImprovePopup
- });
-}
+  toggleImprovePopup() {
+   this.setState({
+     showImprovePopup: !this.state.showImprovePopup
+   });
+  }
     render() {
       var well = this.state.category.filter(cat =>
         (cat.categoryName == "Well"))
@@ -46,6 +46,7 @@ toggleImprovePopup() {
                <Popup
                 text='Click "Close Button" to hide popup'
                 closePopup={this.toggleWellPopup.bind(this)}
+                category ={"well"}
                />
                : null
               }
@@ -65,6 +66,7 @@ toggleImprovePopup() {
                <Popup
                 text='Click "Close Button" to hide popup'
                 closePopup={this.toggleBadPopup.bind(this)}
+                category ={"bad"}
                />
                : null
               }
@@ -84,11 +86,12 @@ toggleImprovePopup() {
                <Popup
                 text='Click "Close Button" to hide popup'
                 closePopup={this.toggleImprovePopup.bind(this)}
+                category ={"improve"}
                />
                : null
               }
               <Card.Body className="card_title" onClick={this.toggleImprovePopup.bind(this) } >
-              Improve On
+              Action Items
               </Card.Body>
             </Card>
             {action.map(cat =>

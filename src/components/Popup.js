@@ -4,7 +4,7 @@ import {Button, FormControl, Dropdown, Card, Form} from 'react-bootstrap'
 class Popup extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {value: ''};
+    this.state = {value: '', category: this.props.category};
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -19,26 +19,20 @@ class Popup extends React.Component {
 
   render() {
     return (
-      <div className="Popup">
+      <Card className="Popup">
+
            <div className='popup_inner'>
-             <h1>{this.props.text}</h1>
-               <Form onSubmit={this.handleSubmit}>
-                 <Form.Control as="select">
-                  <option>Well</option>
-                  <option>Bad</option>
-                  <option>Action</option>
-                </Form.Control>
+             <Form.Control type="submit" onClick={this.props.closePopup} value="Close" className="close"/>
+               <Form.Label className="category_label">Enter what went {this.state.category} :</Form.Label>
+
+           <Form onSubmit={this.handleSubmit}>
                 <Form.Group type="text" value={this.state.value} onChange={this.handleChange} controlId="exampleForm.ControlTextarea1">
-                  <Form.Label>Example textarea</Form.Label>
                   <Form.Control as="textarea" rows="3" />
                 </Form.Group>
-             <Form.Control type="submit" value="Submit" />
+             <Form.Control type="submit" value="Submit" className="submit_button"/>
            </Form>
-           <div className="close_popup">
-             <Button onClick={this.props.closePopup}>close me</Button>
-           </div>
          </div>
-      </div>
+      </Card>
     );
   }
 }

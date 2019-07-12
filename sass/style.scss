@@ -7,8 +7,19 @@
 // yellow: #fffcdc
 // blue: #dcfffc
 // purple: #dcdfff
+.category_label{
+    font-family: 'Work Sans', sans-serif;
+    font-size: 3em;
+}
+.submit_button{
+    background-color: #dcdfff;
+    font-family: 'Pacifico', cursive;
+    font-size: 1.5em;
+    border: none;
+  }
 
-.popup {
+.Card{
+&.popup {
   position: fixed;
   width: 100%;
   height: 100%;
@@ -20,7 +31,10 @@
   z-index: 1;
   background: rgba(0,0,0,.3);
 }
-
+.close{
+  margin-bottom: 10px;
+}
+}
 .popup_inner {
   position: absolute;
   left: 25%;
