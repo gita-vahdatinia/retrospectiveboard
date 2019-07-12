@@ -9,7 +9,8 @@ class TeamBoard extends React.Component{
     showWellPopup: false,
     showBadPopup: false,
     showImprovePopup: false,
-
+    team: this.props.team,
+    sprint: this.props.sprint
   }
   toggleWellPopup() {
    this.setState({
