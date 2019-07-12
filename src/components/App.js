@@ -6,7 +6,7 @@ import {Button} from 'react-bootstrap'
 
 class App extends React.Component {
   state = {
-    pageHeader: 'Retrospective',
+    pageHeader: 'Retro',
     category: this.props.initialCategory,
     showPopup: false
   }

@@ -18,7 +18,7 @@ const TeamBoard = ({category})=> {
         <Container fluid={true}>
         <Row>
           <Col s={12} md={4}>
-            <Card bg="success" >
+            <Card>
               <Card.Body className="card_title">
                 Went Well
               </Card.Body>
@@ -28,7 +28,7 @@ const TeamBoard = ({category})=> {
               )}
           </Col>
           <Col s={12} md={4}>
-            <Card bg="warning" >
+            <Card className="card_title">
               <Card.Body className="card_title">
                 Improve On
               </Card.Body>
@@ -38,7 +38,7 @@ const TeamBoard = ({category})=> {
             )}
           </Col>
           <Col s={12} md={4}>
-            <Card bg="info" >
+            <Card className="card_title">
                 <Card.Body className="card_title">
                   Action Items
                 </Card.Body>
