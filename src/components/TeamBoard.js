@@ -1,17 +1,27 @@
 import React from 'react';
 import CardPreview from './CardPreview'
-import {Container, Row, Col, Card} from 'react-bootstrap';
+import {Container, Row, Col, Card,Button} from 'react-bootstrap';
+import Popup from './Popup'
 
-const TeamBoard = ({category})=> {
+class TeamBoard extends React.Component{
+  state = {
+    category : this.props.category,
+    showPopup: false
+  }
+  togglePopup() {
+   this.setState({
+     showPopup: !this.state.showPopup
+   });
+ }
+    render() {
+      var well = this.state.category.filter(cat =>
+        (cat.categoryName == "Well"))
 
-  var well = category.filter(cat =>
-    (cat.categoryName == "Well"))
+      var bad = this.state.category.filter(cat =>
+      (cat.categoryName == "Bad"))
 
-  var bad = category.filter(cat =>
-  (cat.categoryName == "Bad"))
-
-  var action = category.filter(cat => (
-    cat.categoryName =="Action"))
+      var action = this.state.category.filter(cat => (
+        cat.categoryName =="Action"))
 
     return (
       <div>
@@ -19,7 +29,15 @@ const TeamBoard = ({category})=> {
         <Row>
           <Col s={12} md={4}>
             <Card>
-              <Card.Body className="card_title ">
+              <Card.Body className="card_title" onClick={this.togglePopup.bind(this) } >
+                {this.state.showPopup ?
+                 <Popup
+                  text='Click "Close Button" to hide popup'
+                  closePopup={this.togglePopup.bind(this)}
+                 />
+                 : null
+                }
+
                 Went Well
               </Card.Body>
             </Card>
@@ -57,6 +75,7 @@ const TeamBoard = ({category})=> {
         </Container>
       </div>
     );
+  }
 }
 
 export default TeamBoard;
