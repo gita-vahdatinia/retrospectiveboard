@@ -19,32 +19,38 @@ const TeamBoard = ({category})=> {
         <Row>
           <Col s={12} md={4}>
             <Card>
-              <Card.Body className="card_title">
+              <Card.Body className="card_title ">
                 Went Well
               </Card.Body>
             </Card>
               {well.map(cat =>
-                <CardPreview key={cat.id} {...cat} />
+                <Card.Body className="card_body good">
+                  {cat.categoryDescription}
+                </Card.Body>
               )}
           </Col>
           <Col s={12} md={4}>
-            <Card className="card_title">
+            <Card >
               <Card.Body className="card_title">
                 Improve On
               </Card.Body>
             </Card>
             {bad.map(cat =>
-              <CardPreview key={cat.id} {...cat} />
+              <Card.Body className="card_body improve">
+                {cat.categoryDescription}
+              </Card.Body>
             )}
           </Col>
           <Col s={12} md={4}>
-            <Card className="card_title">
+            <Card >
                 <Card.Body className="card_title">
                   Action Items
                 </Card.Body>
             </Card>
             {action.map(cat =>
-              <CardPreview key={cat.id} {...cat} />
+              <Card.Body className="card_body action">
+                {cat.categoryDescription}
+              </Card.Body>
             )}
           </Col>
         </Row>

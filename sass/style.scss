@@ -3,21 +3,12 @@
 // font-family: 'Work Sans', sans-serif;
 // font-family: 'Pacifico', cursive;
 // font-family: 'Rubik Mono One', sans-serif;
-// color pattern:
-// pink:
-// #ffdcdf
-// yellow:
-// #fffcdc
-// blue
-// #dcfffc
-// purple
-// #dcdfff
+// pink: #ffdcdf
+// yellow: #fffcdc
+// blue: #dcfffc
+// purple: #dcdfff
 
-.issues {
-  margin-top: 1em;
-  margin-left: 1.5em;
-  margin-right: 1.5em;
-}
+
 .Card{
     .card_title{
       font-size: 3em;
@@ -25,16 +16,28 @@
       text-align: center;
       font-family: 'Rubik', sans-serif;
     }
-    .card_body{
-      font-size: 1.2em;
-      -webkit-box-shadow: none;
-      border-radius: 3em;
-      border: 1em;
-      border: 2px solid #73AD21;
-    }
     border: none;
     background-color: #fffaf0;
 
+}
+.card_body{
+  font-size: 1.2em;
+  -webkit-box-shadow: none;
+  border-radius: 3em;
+  border: 1em;
+  border-radius: 3em;
+  margin-top: 1em;
+  margin-left: 1.5em;
+  margin-right: 1.5em;
+  &.good{
+    border: 2px solid green;
+  }
+  &.improve{
+    border: 2px solid red;
+  }
+  &.action{
+    border: 2px solid yellow;
+  }
 }
 
 .add_card{
@@ -83,7 +86,6 @@
     -webkit-box-shadow: none;
     border: 1em;
     min-width: 0;
-
   }
   .dropdown-item{
     color: #000;
