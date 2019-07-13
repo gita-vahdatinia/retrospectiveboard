@@ -8,11 +8,11 @@ class Category extends React.Component {
       <div className="issues">
         <Card.Body className={`card_body ${this.props.color}`}>
           {this.props.items.map(item =>
-            Object.keys(item).map((keyName, keyIndex) => (
+            Object.keys(item).map(keyName => (
               <Card.Body>
                 {keyName}
                 <Card.Text className="small_text">
-                  <small className="text-muted">{keyIndex}</small>
+                  <small className="text-muted">{item[keyName]}</small>
                 </Card.Text>
                 <Card.Text className="card_line"></Card.Text>
               </Card.Body>

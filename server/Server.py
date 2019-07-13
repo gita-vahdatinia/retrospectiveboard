@@ -79,17 +79,25 @@ def post_retro_items(team, sprint_no, retro_type, description):
 @app.route('/<team>/<sprint_no>/<retro_type>/<description>')
 def upvote(team, sprint_no, retro_type, description):
     try:
+        response = table.get_item(
+            Key={
+                'team_name': team,
+                'sprint_no': sprint_no
+            }
+        )
+        value = response['Item'][retro_type][0][description]
+        upvote = str(int(value) + 1)
         table.update_item(
             Key={
                 'team_name': team,
                 'sprint_no': sprint_no
             },
-            UpdateExpression="SET " + retro_type+"."+description+"=:newvalue",
-            ExpressionAttributeValues={":newvalue": "1"}
+            UpdateExpression="SET " + retro_type+"=:i",
+            ExpressionAttributeValues={":i": [{description: upvote}]}
         )
     except ClientError as e:
         # print(e)
-        print("SET " + retro_type+"."+description+"=:newvalue")
+        print("SET " + retro_type+"."+description+"=:i")
         return (e.response['Error']['Message'])
     else:
         return "return statement"
