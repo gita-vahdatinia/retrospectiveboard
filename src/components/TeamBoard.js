@@ -1,16 +1,10 @@
 import React from "react";
 import CardPreview from "./CardPreview";
-import {
-  Container,
-  Row,
-  Col,
-  Card,
-  Button
-} from "react-bootstrap";
+import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import Popup from "./Popup";
 import * as api from "../api";
 import equal from "fast-deep-equal";
-
+import Category from "./Category";
 class TeamBoard extends React.Component {
   state = {
     showWellPopup: false,
@@ -20,9 +14,9 @@ class TeamBoard extends React.Component {
     sprint: this.props.sprint,
     well: [],
     bad: [],
-    action: [],
+    todo: [],
     welldata: "",
-    currentCat: ""
+    currentCat: "",
   };
 
   getDataFromChild = (cat, data) => {
@@ -47,29 +41,7 @@ class TeamBoard extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (!equal(this.props.sprint, prevProps.sprint)) {
-      // Check if it's a new user, you can also use some unique property, like the ID  (this.props.user.id !== prevProps.user.id)
-      api
-        .fetchItems(this.props.team, this.props.sprint, "bad")
-        .then(bad_items => {
-          this.setState({
-            bad: bad_items
-          });
-        });
-      // api.fetchItems(this.props.team, this.props.sprint, "well").then(well_items =>{
-      //   this.setState({
-      //     well: well_items[0]
-      //   })
-      // })
-      // api.fetchItems(this.props.team, this.props.sprint, "todo").then(action_items =>{
-      //   this.setState({
-      //     action: action_items[0]
-      //   })
-      // })
-    }
-
     if (!equal(this.state.welldata, prevState.welldata)) {
-      // Check if it's a new user, you can also use some unique property, like the ID  (this.props.user.id !== prevProps.user.id)
       api
         .postDescription(
           this.props.team,
@@ -77,29 +49,29 @@ class TeamBoard extends React.Component {
           this.state.currentCat,
           this.state.welldata
         )
-        .then(value => {
-          console.log(value);
-          api.fetchWell(this.props.team, this.props.sprint).then(well_items => {
-            this.setState({
-              well: well_items[0]
-            });
-          });
-
-          api.fetchBad(this.props.team, this.props.sprint).then(bad_items => {
-            this.setState({
-              bad: bad_items[0]
-            });
-          });
-
-          api
-            .fetchAction(this.props.team, this.props.sprint)
-            .then(action_items => {
-              this.setState({
-                action: action_items[0]
-              });
-            });
-        });
+        .then(value => console.log(value));
     }
+    api
+      .fetchItems(this.props.team, this.props.sprint, "bad")
+      .then(bad_items => {
+        this.setState({
+          bad: bad_items
+        });
+      });
+    api
+      .fetchItems(this.props.team, this.props.sprint, "well")
+      .then(well_items => {
+        this.setState({
+          well: well_items
+        });
+      });
+    api
+      .fetchItems(this.props.team, this.props.sprint, "todo")
+      .then(todo_items => {
+        this.setState({
+          todo: todo_items
+        });
+      });
   }
   render() {
     return (
@@ -123,9 +95,7 @@ class TeamBoard extends React.Component {
                   Went Well
                 </Card.Body>
               </Card>
-              {this.state.well.map(cat => (
-                <Card.Body className="card_body good">{cat}</Card.Body>
-              ))}
+              <Category items={this.state.well} color={"good"} />
             </Col>
             <Col s={12} md={4}>
               <Card>
@@ -144,19 +114,7 @@ class TeamBoard extends React.Component {
                   Improve On
                 </Card.Body>
               </Card>
-              <Card.Body className="card_body action">
-                {this.state.bad.map(item =>
-                  Object.keys(item).map((keyName, keyIndex) => (
-                    <Card.Body>
-                      {keyName}
-                      <Card.Text className="small_text">
-                        <small className="text-muted">{keyIndex}</small>
-                      </Card.Text>
-                      <Card.Text className="card_line"></Card.Text>
-                    </Card.Body>
-                  ))
-                )}
-              </Card.Body>
+              <Category items={this.state.bad} color={"improve"} />
             </Col>
             <Col s={12} md={4}>
               <Card>
@@ -175,11 +133,7 @@ class TeamBoard extends React.Component {
                   To Do
                 </Card.Body>
               </Card>
-              {this.state.action.map(cat =>
-                Object.keys(cat).map(function(keyName, keyIndex) {
-                  <Card.Body className="card_body action">{keyName}</Card.Body>;
-                })
-              )}
+              <Category items={this.state.todo} color={"action"} />
             </Col>
           </Row>
         </Container>
