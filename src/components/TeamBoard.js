@@ -99,7 +99,7 @@ class TeamBoard extends React.Component {
                   Went Well
                 </Card.Body>
               </Card>
-              <Category items={this.state.well} color={"good"} />
+              <Category items={this.state.well} color={"good"} increaseCount={this.fetchingLists}/>
             </Col>
             <Col s={12} md={4}>
               <Card>

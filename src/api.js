@@ -13,20 +13,17 @@ export const fetchSprint = (team) => {
       return instance.get(`/${team}/sprint`)
         .then(resp => [...new Set(resp.data)])
 }
-export const fetchItems = (team, sprint, retro_type) => {
-  return instance.get(`/${team}/${sprint}/${retro_type}`)
+export const fetchItems = (team, sprint, type) => {
+  return instance.get(`/${team}/${sprint}/${type}`)
     .then(resp => resp.data)
-}
-export const fetchBad = (team, sprint) => {
-  return instance.get(`/${team}/${sprint}/bad`)
-    .then(resp => [...new Set(resp.data)])
-}
-export const fetchAction = (team, sprint) => {
-  return instance.get(`/${team}/${sprint}/todo`)
-    .then(resp => [...new Set(resp.data)])
 }
 
 export const postDescription = (team, sprint, type, description) =>{
   return instance.get(`/post/${team}/${sprint}/${type}/${description}`)
     .then(resp => resp)
+}
+
+export const upVote = (team, sprint, type, description) => {
+  return instance.get(`/${team}/${sprint}/${type}/${description}`)
+  .then(resp => resp)
 }

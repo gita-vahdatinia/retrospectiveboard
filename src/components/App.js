@@ -17,9 +17,6 @@ class App extends React.Component {
      showPopup: !this.state.showPopup
    });
  }
-  componentWillUnmount() {
-    // clean timers, listeners
-  }
   onselectTeam = (team) => {
     this.setState({ selectTeam: team})
   }
