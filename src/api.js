@@ -13,9 +13,9 @@ export const fetchSprint = (team) => {
       return instance.get(`/${team}/sprint`)
         .then(resp => [...new Set(resp.data)])
 }
-export const fetchWell = (team, sprint) => {
-  return instance.get(`/${team}/${sprint}/well`)
-    .then(resp => [...new Set(resp.data)])
+export const fetchItems = (team, sprint, retro_type) => {
+  return instance.get(`/${team}/${sprint}/${retro_type}`)
+    .then(resp => resp.data)
 }
 export const fetchBad = (team, sprint) => {
   return instance.get(`/${team}/${sprint}/bad`)

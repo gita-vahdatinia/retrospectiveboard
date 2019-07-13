@@ -74,7 +74,15 @@
   &.action{
     border: 2px solid yellow;
   }
+  .small_text{
+    border: none;
+    background-color: transparent;
+    text-align: right;
+  }
 }
+  .card_line{
+    border-bottom: rgba(219, 222, 255, 0.68) 0.1em solid;
+  }
 
 .add_card{
   font-family: monospace;
