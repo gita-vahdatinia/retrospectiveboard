@@ -65,13 +65,13 @@
   margin-top: 1em;
   margin-left: 1.5em;
   margin-right: 1.5em;
-  &.good{
+  &.well{
     border: 2px solid green;
   }
-  &.improve{
+  &.bad{
     border: 2px solid red;
   }
-  &.action{
+  &.todo{
     border: 2px solid yellow;
   }
   .small_text{

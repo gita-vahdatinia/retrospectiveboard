@@ -92,7 +92,7 @@ def upvote(team, sprint_no, retro_type, description):
                 'team_name': team,
                 'sprint_no': sprint_no
             },
-            UpdateExpression="SET " + retro_type+"=:i",
+            UpdateExpression="SET " + retro_type+"."+description+"=:i",
             ExpressionAttributeValues={":i": [{description: upvote}]}
         )
     except ClientError as e:
