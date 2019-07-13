@@ -20,16 +20,12 @@ ACTIVE_STATE = 'alive!'
 def get_teams():
     try:
         response = table.scan()
-
         list_of_teams = []
-
         for item in response['Items']:
             if item['team_name'].encode('utf-8') not in list_of_teams:
                 list_of_teams.append(item['team_name'].encode('utf-8'))
-
     except ClientError as e:
         print(e.response['Error']['Message'])
-
     else:
         return jsonify(list_of_teams)
 
@@ -38,12 +34,9 @@ def get_teams():
 def get_team_sprints(team):
     try:
         response = table.scan()
-
         list_of_sprints = [item['sprint_no'].encode('utf-8') for item in response['Items'] if item['team_name'].encode('utf-8') == team]
-
     except ClientError as e:
         print(e.response['Error']['Message'])
-
     else:
         return jsonify(list_of_sprints)
 
@@ -60,7 +53,6 @@ def get_all_values(team, sprint_no, retro_type):
         all_values = response['Item'][retro_type]
     except ClientError as e:
         print(e.response['Error']['Message'])
-
     else:
         return jsonify(all_values)
 

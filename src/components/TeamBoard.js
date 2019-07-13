@@ -39,18 +39,7 @@ class TeamBoard extends React.Component {
       showImprovePopup: !this.state.showImprovePopup
     });
   }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (!equal(this.state.welldata, prevState.welldata)) {
-      api
-        .postDescription(
-          this.props.team,
-          this.props.sprint,
-          this.state.currentCat,
-          this.state.welldata
-        )
-        .then(value => console.log(value));
-    }
+  fetchingLists() {
     api
       .fetchItems(this.props.team, this.props.sprint, "bad")
       .then(bad_items => {
@@ -72,6 +61,21 @@ class TeamBoard extends React.Component {
           todo: todo_items
         });
       });
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (!equal(this.state.welldata, prevState.welldata)) {
+      api
+        .postDescription(
+          this.props.team,
+          this.props.sprint,
+          this.state.currentCat,
+          this.state.welldata
+        )
+        .then(value => this.fetchingLists());
+    }
+    if(!equal(this.props.sprint, prevProps.sprint )){
+      this.fetchingLists()
+    }
   }
   render() {
     return (
