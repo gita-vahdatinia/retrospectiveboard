@@ -5,11 +5,20 @@ import * as api from '../api'
 import equal from "fast-deep-equal";
 
 class Category extends React.Component {
+  state = {
+    team: "tools",
+    sprint: "4",
+    retro_type: "well",
+    description: "whatagain"
 
+  }
   increaseCount = () => {
-    api.upVote("tools", "4", "well", "whatagain")
+    api.upVote(this.state.team, this.state .sprint, this.state.retro_type, this.state.description)
     .then(resp => console.log("Upvoted"))
+    console.log(this.props)
     this.props.upvoted()
+    console.log("Here")
+
   }
 
   render() {
