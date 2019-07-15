@@ -3,7 +3,7 @@ import Header from "./Header";
 import TeamBoard from "./TeamBoard";
 import Popup from "./Popup";
 import * as api from "../api";
-import { Form, Row, Col, Button, Collapse } from "react-bootstrap";
+import { Form, Row, Col, Button, Collapse, Dropdown } from "react-bootstrap";
 
 class Splash extends React.Component {
   state = {
@@ -26,15 +26,14 @@ class Splash extends React.Component {
     });
   }
   changeTeam(team) {
+    console.log(team.team);
     api.fetchSprint(team.team).then(sprints => {
       this.setState({
         sprints: sprints,
         selectedTeam: team.team,
         selectedSprint: sprints[0]
       });
-      this.props.selectedSprint(sprints[0]);
     });
-    this.props.selectedTeam(team.team);
   }
   changeSprint(sprint) {
     this.setState({
@@ -43,8 +42,9 @@ class Splash extends React.Component {
     this.props.selectedSprint(sprint.sprint);
   }
   handleSubmit(event) {
-    event.preventDefault();
-    console.log("SUbmited");
+    api
+      .createTeam(this.state.selectedTeam, this.state.selectedSprint)
+      .then(resp => console.log(resp));
   }
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
@@ -55,29 +55,30 @@ class Splash extends React.Component {
         <div className="backgroundImage">
           <Row>
             <Col md={{ span: 6, offset: 3 }}>
-              <Form>
-                <Form.Group controlId="exampleForm.ControlSelect1">
-                  <Form.Label>Select a Team</Form.Label>
+              <Dropdown>
+                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                  Select a Team
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
                   {this.state.teams.map(team => (
-                    <Form.Control
-                      as="select"
+                    <Dropdown.Item
                       onClick={this.changeTeam.bind(this, { team })}
                     >
-                      <option>{team}</option>
-                    </Form.Control>
+                      {team}
+                    </Dropdown.Item>
                   ))}
-                </Form.Group>
-              </Form>
-              <Form>
-                <Form.Group controlId="exampleForm.ControlSelect1">
-                  <Form.Label>Select a Sprint</Form.Label>
+                </Dropdown.Menu>
+              </Dropdown>
+              <Dropdown>
+                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                  {this.state.selectedSprint}
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
                   {this.state.sprints.map(sprint => (
-                    <Form.Control as="select">
-                      <option>{sprint}</option>
-                    </Form.Control>
+                    <Dropdown.Item>{sprint}</Dropdown.Item>
                   ))}
-                </Form.Group>
-              </Form>
+                </Dropdown.Menu>
+              </Dropdown>
               <Button
                 onClick={() => this.setState({ open: !this.state.open })}
                 aria-controls="example-collapse-text"

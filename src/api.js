@@ -27,3 +27,8 @@ export const upVote = (team, sprint, type, description) => {
   return instance.get(`/${team}/${sprint}/${type}/${description}`)
   .then(resp => resp)
 }
+
+export const createTeam = (team, sprint) => {
+  return instance.get(`/post/${team}/${sprint}`)
+  .then(resp => resp)
+}
