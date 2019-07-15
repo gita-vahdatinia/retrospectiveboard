@@ -42,7 +42,7 @@ class TeamBoard extends React.Component {
     });
   }
   callIncrease = (desc, color) => {
-    api.upVote(this.props.team, this.props.sprint, color, desc)
+    api.upVote(this.props.team, this.props.sprint, color, desc.item)
     .then(resp =>
     this.fetchingLists())
   }
@@ -106,8 +106,11 @@ class TeamBoard extends React.Component {
                   Went Well
                 </Card.Body>
               </Card>
+              <Card.Body className={'card_body well'}>
               <Category items={this.state.well} color={"well"} upvoted={this.callIncrease.bind(this)}/>
-            </Col>
+              </Card.Body>
+
+          </Col>
             <Col s={12} md={4}>
               <Card>
                 {this.state.showBadPopup ? (
@@ -125,8 +128,10 @@ class TeamBoard extends React.Component {
                   Improve On
                 </Card.Body>
               </Card>
+              <Card.Body className={'card_body bad'}>
               <Category items={this.state.bad} color={"bad"} upvoted={this.callIncrease.bind(this)}/>
-            </Col>
+              </Card.Body>
+          </Col>
             <Col s={12} md={4}>
               <Card>
                 {this.state.showImprovePopup ? (
@@ -144,8 +149,9 @@ class TeamBoard extends React.Component {
                   To Do
                 </Card.Body>
               </Card>
+              <Card.Body className={'card_body todo'}>
               <Category items={this.state.todo} color={"todo"} upvoted={this.callIncrease.bind(this)}/>
-
+              </Card.Body>
             </Col>
           </Row>
         </Container>
