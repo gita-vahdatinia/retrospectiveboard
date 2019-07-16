@@ -42,7 +42,7 @@ class Header extends React.Component {
     return (
       <div>
         <Navbar>
-          <Navbar.Brand href="#home" className="title">
+          <Navbar.Brand href="" className="title">
             Retro
           </Navbar.Brand>
           <NavDropdown title={this.state.selected_team} id="basic-nav-dropdown">

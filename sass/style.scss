@@ -11,13 +11,18 @@
   font-family: "Work Sans", sans-serif;
   font-size: 3em;
 }
+
 .submit_button {
   background-color: #dcdfff;
   font-family: "Pacifico", cursive;
   font-size: 1.5em;
   border: none;
 }
+
 .splash {
+  .transparent{
+    color: transparent;
+  }
   .backgroundImage {
     background: url("Botticelli-primavera.jpg");
     background-size: cover;
@@ -31,6 +36,7 @@
   color: white;
   text-align: center;
 }
+
 .Card {
   &.popup {
     position: fixed;
@@ -90,6 +96,7 @@
   margin-right: 1.5em;
   &.well {
     border: 2px solid green;
+    background-color: transparent;
   }
   &.bad {
     border: 2px solid red;
@@ -139,20 +146,31 @@
     color: #000;
   }
 }
-.dropdown-toggle{
-    width: 100%;
-    .splashbutton.dropdown-item{width: 100%}
-}
+
 .Splash{
+  margin: auto;
+  width: 50%;
+  padding: 10px;
   text-transform: uppercase;
   .dropdown-menu {
-    background-color: #fffcdc;
+    background-color: #dcfffc;
     font-size: 0.3em;
     -webkit-box-shadow: none;
     border: 1em;
     width: 100%;
   }
+  .dropdown-toggle{
+      width: 100%;
+      font-size: 0.5em;
+      color: #fffcdc;
+      .splashbutton.dropdown-item{width: 100%}
+  }
   .splashbutton{
     width: 100%
   }
 }
+
+// pink: #ffdcdf
+// yellow: #fffcdc
+// blue: #dcfffc
+// purple: #dcdfff

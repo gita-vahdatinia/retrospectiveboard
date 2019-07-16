@@ -3,7 +3,7 @@ import Header from "./Header";
 import TeamBoard from "./TeamBoard";
 import Popup from "./Popup";
 import * as api from "../api";
-import { Form, Row, Col, Button, Collapse, Dropdown } from "react-bootstrap";
+import { Form, Row, Col, Button, Collapse, Dropdown, Card } from "react-bootstrap";
 
 class Splash extends React.Component {
   state = {
@@ -54,10 +54,12 @@ class Splash extends React.Component {
     return (
       <div className="Splash">
         <div className="backgroundImage">
+          <Row className="transparent"><Col>here</Col></Row>
+          <Row className="transparent"><Col>here</Col></Row>
           <Row>
             <Col md={{ span: 6, offset: 3 }}>
               <Dropdown>
-                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                <Dropdown.Toggle  id="dropdown-basic">
                   {this.state.team}
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
@@ -71,7 +73,7 @@ class Splash extends React.Component {
                 </Dropdown.Menu>
               </Dropdown>
               <Dropdown>
-                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                <Dropdown.Toggle  id="dropdown-basic">
                   {this.state.sprint}
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
