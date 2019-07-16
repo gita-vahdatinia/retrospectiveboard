@@ -3,6 +3,7 @@ import apiRouter from './api';
 import sassMiddleware from 'node-sass-middleware';
 import path from 'path';
 import serverRender from './serverRender'
+import splashRender from './serverRender'
 import express from 'express';
 import bodyParser from 'body-parser';
 
@@ -18,7 +19,7 @@ server.set('view engine', 'ejs');
 
 server.get(['/', '/:team/:sprint'], (req, res) => {
   serverRender(req.params.team, req.params.sprint)
-    .then(({ initialMarkup, initialData }) => {
+    .then(({ initialMarkup, initialData}) => {
       res.render('index', {
         initialMarkup,
         initialData

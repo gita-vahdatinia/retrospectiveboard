@@ -5,8 +5,8 @@ class Header extends React.Component {
   state = {
     teams: [],
     sprints: [],
-    selected_team: "Select Team",
-    selected_sprint: "Select Sprint"
+    selected_team: this.props.team,
+    selected_sprint: this.props.sprint
   };
   componentDidMount() {
     api.fetchTeams().then(teams => {

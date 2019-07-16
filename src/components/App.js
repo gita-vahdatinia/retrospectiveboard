@@ -34,9 +34,8 @@ class App extends React.Component {
     return (
       <div className="App">
       <Header message={this.state.pageHeader} selectedTeam={this.onselectTeam} selectedSprint={this.onselectSprint} />
-      <TeamBoard category={this.state.category} team={this.state.selectTeam} sprint={this.state.selectSprint}/>
-
-        </div>
+      <TeamBoard team={this.state.selectTeam} sprint={this.state.selectSprint}/>
+      </div>
     );
   }
 }

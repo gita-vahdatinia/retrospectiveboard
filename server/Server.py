@@ -39,7 +39,7 @@ def get_teams():
     except ClientError as e:
         print(e.response['Error']['Message'])
     else:
-        return jsonify(list_of_teams)
+        return jsonify({"teams": list_of_teams})
 
 
 @app.route('/<team>/sprint')

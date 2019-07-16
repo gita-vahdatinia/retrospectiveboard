@@ -5,21 +5,13 @@ import Popup from "./Popup";
 import * as api from "../api";
 import equal from "fast-deep-equal";
 import Category from "./Category";
+import Header from "./Header"
+
+const pushState = (obj, url) =>
+  window.history.pushState(obj, '', url);
+
 class TeamBoard extends React.Component {
-  state = {
-    showWellPopup: false,
-    showBadPopup: false,
-    showImprovePopup: false,
-    team: this.props.team,
-    sprint: this.props.sprint,
-    well: [],
-    bad: [],
-    todo: [],
-    welldata: "",
-    currentCat: "",
-    description: "",
-    retro_type: "",
-  };
+  state = this.props.initialData
 
   getDataFromChild = (cat, data) => {
     this.setState({ welldata: data });
@@ -42,12 +34,12 @@ class TeamBoard extends React.Component {
     });
   }
   callIncrease = (desc, color) => {
-    api.upVote(this.props.team, this.props.sprint, color, desc.item)
+    api.upVote(this.state.team, this.state.sprint, color, desc.item)
     .then(resp =>
     this.fetchingLists())
   }
   fetchingLists() {
-    api.fetchItems(this.props.team, this.props.sprint)
+    api.fetchItems(this.state.team, this.state.sprint)
     .then(items => {
       this.setState({
         bad: items.bad,
@@ -60,20 +52,30 @@ class TeamBoard extends React.Component {
     if (!equal(this.state.welldata, prevState.welldata)) {
       api
         .postDescription(
-          this.props.team,
-          this.props.sprint,
+          this.state.team,
+          this.state.sprint,
           this.state.currentCat,
           this.state.welldata
         )
         .then(value => this.fetchingLists());
     }
-    if(!equal(this.props.sprint, prevProps.sprint )){
-      this.fetchingLists()
+    if (!equal(this.state.sprint, prevState.sprint) || (!equal(this.state.team, prevState.team)))
+      {this.fetchingLists()}
     }
+  onselectTeam = (team) => {
+    this.setState({ team: team})
+  }
+  onselectSprint = (sprint) =>{
+    this.setState({ sprint: sprint})
+    pushState(
+      {selectSprint: sprint},
+      `/${this.state.team}/${sprint}`
+    )
   }
   render() {
     return (
       <div>
+        <Header selectedTeam={this.onselectTeam} selectedSprint={this.onselectSprint} team={this.state.team} sprint={this.state.sprint}/>
         <Container fluid={true}>
           <Row>
             <Col s={12} md={4}>
