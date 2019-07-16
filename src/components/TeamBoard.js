@@ -47,27 +47,14 @@ class TeamBoard extends React.Component {
     this.fetchingLists())
   }
   fetchingLists() {
-    api
-      .fetchItems(this.props.team, this.props.sprint, "bad")
-      .then(bad_items => {
-        this.setState({
-          bad: bad_items
-        });
+    api.fetchItems(this.props.team, this.props.sprint)
+    .then(items => {
+      this.setState({
+        bad: items.bad,
+        well: items.well,
+        todo: items.todo
       });
-    api
-      .fetchItems(this.props.team, this.props.sprint, "well")
-      .then(well_items => {
-        this.setState({
-          well: well_items
-        });
-      });
-    api
-      .fetchItems(this.props.team, this.props.sprint, "todo")
-      .then(todo_items => {
-        this.setState({
-          todo: todo_items
-        });
-      });
+    });
   }
   componentDidUpdate(prevProps, prevState) {
     if (!equal(this.state.welldata, prevState.welldata)) {

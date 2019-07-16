@@ -8,8 +8,9 @@ class Category extends React.Component {
   increaseCount(desc) {
     this.props.upvoted(desc, this.props.color);
   }
+
   render() {
-    const listItems = Object.keys(this.props.items).map(item => {
+    const listItems = Object.keys(this.props.items || {}).map(item => {
       return (
         <div className="issues">
             <Card.Body>

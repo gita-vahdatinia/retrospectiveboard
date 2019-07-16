@@ -53,8 +53,8 @@ def get_team_sprints(team):
         return jsonify(list_of_sprints)
 
 
-@app.route('/<team>/<sprint_no>/<retro_type>')
-def get_all_values(team, sprint_no, retro_type):
+@app.route('/<team>/<sprint_no>')
+def get_all_values(team, sprint_no):
     try:
         response = table.get_item(
             Key={
@@ -62,7 +62,7 @@ def get_all_values(team, sprint_no, retro_type):
                 'sprint_no': sprint_no
             }
         )
-        all_values = response['Item'][retro_type]
+        all_values = response['Item']['category']
     except ClientError as e:
         print(e.response['Error']['Message'])
     else:
@@ -71,13 +71,14 @@ def get_all_values(team, sprint_no, retro_type):
 
 @app.route('/<team>/<sprint_no>/<retro_type>/<description>')
 def upvote(team, sprint_no, retro_type, description):
+    print("SET category." + retro_type + ".#description = " + retro_type + ".#description + :i")
     try:
         table.update_item(
             Key={
                 'team_name': team,
                 'sprint_no': sprint_no
             },
-            UpdateExpression="SET " + retro_type + ".#description = " + retro_type + ".#description + :i",
+            UpdateExpression="SET category." + retro_type + ".#description = category." + retro_type + ".#description + :i",
             ExpressionAttributeNames={
                 '#description': description,
             },
@@ -97,7 +98,7 @@ def insert_description(team, sprint_no, retro_type, description):
                 'team_name': team,
                 'sprint_no': sprint_no
             },
-            UpdateExpression="SET " + retro_type + ".#description =:i",
+            UpdateExpression="SET category." + retro_type + ".#description =:i",
             ExpressionAttributeNames={
                 '#description': description,
             },
@@ -116,9 +117,7 @@ def insert_team(team, sprint_no):
             Item={
                 'team_name': team,
                 'sprint_no': sprint_no,
-                'well': {},
-                'bad': {},
-                'todo': {}
+                'category': {'well': {}, 'bad': {}, 'todo': {}}
             }
         )
     except ClientError as e:

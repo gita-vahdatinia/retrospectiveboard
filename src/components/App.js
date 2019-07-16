@@ -5,10 +5,12 @@ import Popup from './Popup'
 import Splash from './Splash'
 import {Button} from 'react-bootstrap'
 
+const pushState = (obj, url) =>
+  window.history.pushState(obj, '', url);
+
 class App extends React.Component {
   state = {
     pageHeader: 'Retro',
-    category: this.props.initialCategory,
     showPopup: false,
     selectTeam: "",
     selectSprint: ""
@@ -23,12 +25,18 @@ class App extends React.Component {
   }
   onselectSprint = (sprint) =>{
     this.setState({ selectSprint: sprint})
+    pushState(
+      {selectSprint: sprint},
+      `/${this.state.selectTeam}/${sprint}`
+    )
   }
   render() {
     return (
       <div className="App">
-        <Splash/>
-      </div>
+      <Header message={this.state.pageHeader} selectedTeam={this.onselectTeam} selectedSprint={this.onselectSprint} />
+      <TeamBoard category={this.state.category} team={this.state.selectTeam} sprint={this.state.selectSprint}/>
+
+        </div>
     );
   }
 }

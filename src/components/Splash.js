@@ -26,7 +26,6 @@ class Splash extends React.Component {
     });
   }
   changeTeam(team) {
-    console.log(team.team);
     api.fetchSprint(team.team).then(sprints => {
       this.setState({
         sprints: sprints,
@@ -39,7 +38,6 @@ class Splash extends React.Component {
     this.setState({
       selectedSprint: sprint.sprint
     });
-    this.props.selectedSprint(sprint.sprint);
   }
   handleSubmit(event) {
     api
@@ -62,7 +60,7 @@ class Splash extends React.Component {
                 <Dropdown.Menu>
                   {this.state.teams.map(team => (
                     <Dropdown.Item
-                      onClick={this.changeTeam.bind(this, { team })}
+                      onClick={this.changeTeam.bind(this, { team }) }
                     >
                       {team}
                     </Dropdown.Item>
@@ -75,10 +73,23 @@ class Splash extends React.Component {
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   {this.state.sprints.map(sprint => (
-                    <Dropdown.Item>{sprint}</Dropdown.Item>
+                    <Dropdown.Item onClick={this.changeSprint.bind(this, { sprint }) }>{sprint}</Dropdown.Item>
                   ))}
                 </Dropdown.Menu>
               </Dropdown>
+            </Col>
+          </Row>
+          <Row>
+            <Col md={{ span: 6, offset: 3 }}>
+              <Button
+              >
+                Go To {this.state.selectedTeam} Board for Sprint{" "}
+                {this.state.selectedSprint}
+              </Button>
+            </Col>
+          </Row>
+          <Row>
+            <Col md={{ span: 6, offset: 3 }}>
               <Button
                 onClick={() => this.setState({ open: !this.state.open })}
                 aria-controls="example-collapse-text"
