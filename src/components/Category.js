@@ -10,7 +10,7 @@ class Category extends React.Component {
   }
 
   render() {
-    const listItems = Object.keys(this.props.items).map(item => {
+    const listItems = Object.keys(this.props.items || {}).map(item => {
       return (
         <div className="issues">
             <Card.Body>

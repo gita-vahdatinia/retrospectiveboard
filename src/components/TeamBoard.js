@@ -5,21 +5,14 @@ import Popup from "./Popup";
 import * as api from "../api";
 import equal from "fast-deep-equal";
 import Category from "./Category";
+import Header from "./Header"
+import Splash from "./Splash"
+
+const pushState = (obj, url) =>
+  window.history.pushState(obj, '', url);
+
 class TeamBoard extends React.Component {
-  state = {
-    showWellPopup: false,
-    showBadPopup: false,
-    showImprovePopup: false,
-    team: this.props.team,
-    sprint: this.props.sprint,
-    well: [],
-    bad: [],
-    todo: [],
-    welldata: "",
-    currentCat: "",
-    description: "",
-    retro_type: "",
-  };
+  state = this.props.initialData
 
   getDataFromChild = (cat, data) => {
     this.setState({ welldata: data });
@@ -42,119 +35,132 @@ class TeamBoard extends React.Component {
     });
   }
   callIncrease = (desc, color) => {
-    api.upVote(this.props.team, this.props.sprint, color, desc.item)
+    api.upVote(this.state.team, this.state.sprint, color, desc.item)
     .then(resp =>
     this.fetchingLists())
   }
   fetchingLists() {
-    api
-      .fetchItems(this.props.team, this.props.sprint, "bad")
-      .then(bad_items => {
-        this.setState({
-          bad: bad_items
-        });
+    api.fetchItems(this.state.team, this.state.sprint)
+    .then(items => {
+      this.setState({
+        bad: items.bad,
+        well: items.well,
+        todo: items.todo
       });
-    api
-      .fetchItems(this.props.team, this.props.sprint, "well")
-      .then(well_items => {
-        this.setState({
-          well: well_items
-        });
-      });
-    api
-      .fetchItems(this.props.team, this.props.sprint, "todo")
-      .then(todo_items => {
-        this.setState({
-          todo: todo_items
-        });
-      });
+    });
   }
   componentDidUpdate(prevProps, prevState) {
+    if (!equal (this.state.sprint, "")){}
     if (!equal(this.state.welldata, prevState.welldata)) {
       api
         .postDescription(
-          this.props.team,
-          this.props.sprint,
+          this.state.team,
+          this.state.sprint,
           this.state.currentCat,
           this.state.welldata
         )
         .then(value => this.fetchingLists());
     }
-    if(!equal(this.props.sprint, prevProps.sprint )){
-      this.fetchingLists()
+    if (!equal(this.state.sprint, prevState.sprint) )
+      {this.fetchingLists()}
     }
+  onselectTeam = (team) => {
+    this.setState({ team: team})
+  }
+  onselectSprint = (sprint) =>{
+    this.setState({ sprint: sprint})
+    pushState(
+      {selectSprint: sprint},
+      `/${this.state.team}/${sprint}`
+    )
+  }
+  selectSplash = (team, sprint) =>{
+    this.setState({  team: team, sprint: sprint})
+    pushState(
+      { selectedTeam: team, selectSprint: sprint},
+      `/${team}/${sprint}`
+    )
+  }
+  currentContent() {
+  if (this.state.sprint) {
+    return (<div>
+    <Header selectedTeam={this.onselectTeam} selectedSprint={this.onselectSprint} team={this.state.team} sprint={this.state.sprint}/>
+    <Container fluid={true}>
+      <Row>
+        <Col s={12} md={4}>
+          <Card>
+            {this.state.showWellPopup ? (
+              <Popup
+                text='Click "Close Button" to hide popup'
+                closePopup={this.toggleWellPopup.bind(this)}
+                category={"well"}
+                sendData={this.getDataFromChild}
+              />
+            ) : null}
+            <Card.Body
+              className="card_title"
+              onClick={this.toggleWellPopup.bind(this)}
+            >
+              Went Well
+            </Card.Body>
+          </Card>
+          <Card.Body className={'card_body well'}>
+          <Category items={this.state.well} color={"well"} upvoted={this.callIncrease.bind(this)}/>
+          </Card.Body>
+
+      </Col>
+        <Col s={12} md={4}>
+          <Card>
+            {this.state.showBadPopup ? (
+              <Popup
+                text='Click "Close Button" to hide popup'
+                closePopup={this.toggleBadPopup.bind(this)}
+                category={"bad"}
+                sendData={this.getDataFromChild}
+              />
+            ) : null}
+            <Card.Body
+              className="card_title"
+              onClick={this.toggleBadPopup.bind(this)}
+            >
+              Improve On
+            </Card.Body>
+          </Card>
+          <Card.Body className={'card_body bad'}>
+          <Category items={this.state.bad} color={"bad"} upvoted={this.callIncrease.bind(this)}/>
+          </Card.Body>
+      </Col>
+        <Col s={12} md={4}>
+          <Card>
+            {this.state.showImprovePopup ? (
+              <Popup
+                text='Click "Close Button" to hide popup'
+                closePopup={this.toggleImprovePopup.bind(this)}
+                category={"todo"}
+                sendData={this.getDataFromChild}
+              />
+            ) : null}
+            <Card.Body
+              className="card_title"
+              onClick={this.toggleImprovePopup.bind(this)}
+            >
+              To Do
+            </Card.Body>
+          </Card>
+          <Card.Body className={'card_body todo'}>
+          <Category items={this.state.todo} color={"todo"} upvoted={this.callIncrease.bind(this)}/>
+          </Card.Body>
+        </Col>
+      </Row>
+    </Container> </div>)
+  }
+
+  return <Splash teams={this.state.teams} selectedSprint={this.selectSplash}/>;
   }
   render() {
     return (
       <div>
-        <Container fluid={true}>
-          <Row>
-            <Col s={12} md={4}>
-              <Card>
-                {this.state.showWellPopup ? (
-                  <Popup
-                    text='Click "Close Button" to hide popup'
-                    closePopup={this.toggleWellPopup.bind(this)}
-                    category={"well"}
-                    sendData={this.getDataFromChild}
-                  />
-                ) : null}
-                <Card.Body
-                  className="card_title"
-                  onClick={this.toggleWellPopup.bind(this)}
-                >
-                  Went Well
-                </Card.Body>
-              </Card>
-              <Card.Body className={'card_body well'}>
-              <Category items={this.state.well} color={"well"} upvoted={this.callIncrease.bind(this)}/>
-              </Card.Body>
-
-          </Col>
-            <Col s={12} md={4}>
-              <Card>
-                {this.state.showBadPopup ? (
-                  <Popup
-                    text='Click "Close Button" to hide popup'
-                    closePopup={this.toggleBadPopup.bind(this)}
-                    category={"bad"}
-                    sendData={this.getDataFromChild}
-                  />
-                ) : null}
-                <Card.Body
-                  className="card_title"
-                  onClick={this.toggleBadPopup.bind(this)}
-                >
-                  Improve On
-                </Card.Body>
-              </Card>
-              <Card.Body className={'card_body bad'}>
-              <Category items={this.state.bad} color={"bad"} upvoted={this.callIncrease.bind(this)}/>
-              </Card.Body>
-          </Col>
-            <Col s={12} md={4}>
-              <Card>
-                {this.state.showImprovePopup ? (
-                  <Popup
-                    text='Click "Close Button" to hide popup'
-                    closePopup={this.toggleImprovePopup.bind(this)}
-                    category={"todo"}
-                    sendData={this.getDataFromChild}
-                  />
-                ) : null}
-                <Card.Body
-                  className="card_title"
-                  onClick={this.toggleImprovePopup.bind(this)}
-                >
-                  To Do
-                </Card.Body>
-              </Card>
-              <Card.Body className={'card_body todo'}>
-              <Category items={this.state.todo} color={"todo"} upvoted={this.callIncrease.bind(this)}/>
-              </Card.Body>
-            </Col>
-          </Row>
-        </Container>
+        {this.currentContent()}
       </div>
     );
   }

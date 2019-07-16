@@ -7,33 +7,43 @@
 // yellow: #fffcdc
 // blue: #dcfffc
 // purple: #dcdfff
-.category_label{
-    font-family: 'Work Sans', sans-serif;
-    font-size: 3em;
+.category_label {
+  font-family: "Work Sans", sans-serif;
+  font-size: 3em;
 }
-.submit_button{
-    background-color: #dcdfff;
-    font-family: 'Pacifico', cursive;
-    font-size: 1.5em;
-    border: none;
+.submit_button {
+  background-color: #dcdfff;
+  font-family: "Pacifico", cursive;
+  font-size: 1.5em;
+  border: none;
+}
+.splash {
+  .backgroundImage {
+    background: url("Botticelli-primavera.jpg");
+    background-size: cover;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
   }
-
-.Card{
-&.popup {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
-  z-index: 1;
-  background: rgba(0,0,0,.3);
+  font-size: 3em;
+  color: white;
+  text-align: center;
 }
-.close{
-  margin-bottom: 10px;
-}
+.Card {
+  &.popup {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    z-index: 1;
+    background: rgba(0, 0, 0, 0.3);
+  }
 }
 .popup_inner {
   position: absolute;
@@ -43,20 +53,33 @@
   bottom: 25%;
   margin: auto;
   background: white;
-}
-.Card{
-    .card_title{
-      font-size: 3em;
-      color: black;
-      text-align: center;
-      font-family: 'Rubik', sans-serif;
-      cursor: pointer;
-    }
-    border: none;
-    background-color: #fffaf0;
 
+  .close {
+    cursor: pointer;
+    position: absolute;
+    display: block;
+    padding: 2px 5px;
+    line-height: 20px;
+    right: -10px;
+    top: -10px;
+    font-size: 24px;
+    background: #ffffff;
+    border-radius: 18px;
+    border: 2px solid #000;
+  }
 }
-.card_body{
+.Card {
+  .card_title {
+    font-size: 3em;
+    color: black;
+    text-align: center;
+    font-family: "Rubik", sans-serif;
+    cursor: pointer;
+  }
+  border: none;
+  background-color: #fffaf0;
+}
+.card_body {
   font-size: 1.2em;
   -webkit-box-shadow: none;
   border-radius: 3em;
@@ -65,53 +88,54 @@
   margin-top: 1em;
   margin-left: 1.5em;
   margin-right: 1.5em;
-  &.well{
+  &.well {
     border: 2px solid green;
   }
-  &.bad{
+  &.bad {
     border: 2px solid red;
   }
-  &.todo{
+  &.todo {
     border: 2px solid yellow;
   }
-  .small_text{
+  .small_text {
     border: none;
     background-color: transparent;
     text-align: right;
+    cursor: pointer;
+
   }
 }
-  .card_line{
-    border-bottom: rgba(219, 222, 255, 0.68) 0.1em solid;
-  }
+.card_line {
+  border-bottom: rgba(219, 222, 255, 0.68) 0.1em solid;
+}
 
-.add_card{
+.add_card {
   font-family: monospace;
   position: absolute;
   bottom: 0;
   right: 0;
 }
 
-
-.navbar{
+.navbar {
   border-radius: 0;
   font-size: 1.5em;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   background-color: #d9a7c7;
-  .dropdown-toggle{
+  .dropdown-toggle {
     color: #fffcdc;
   }
-  .title{
-    font-family: 'Pacifico', cursive;
+  .title {
+    font-family: "Pacifico", cursive;
     font-size: 1.5em;
   }
-  .dropdown-menu{
+  .dropdown-menu {
     background-color: #fffcdc;
-    font-size: .8em;
+    font-size: 0.8em;
     -webkit-box-shadow: none;
     border: 1em;
     min-width: 0;
   }
-  .dropdown-item{
+  .dropdown-item {
     color: #000;
   }
 }

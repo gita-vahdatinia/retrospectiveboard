@@ -7,6 +7,7 @@ class Popup extends React.Component {
     this.state = { value: "", category: this.props.category };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.close = this.close.bind(this);
   }
   handleSubmit(event) {
     event.preventDefault();
@@ -17,10 +18,18 @@ class Popup extends React.Component {
     this.setState({ value: event.target.value });
   }
 
+  close(event){
+    event.preventDefault();
+    this.props.closePopup();
+  }
+
   render() {
     return (
       <Card className="Popup">
         <div className="popup_inner">
+          <a className="close" onClick={this.close}>
+            &times;
+          </a>
           <Form.Label className="category_label">
             Enter what went {this.state.category} :
           </Form.Label>
