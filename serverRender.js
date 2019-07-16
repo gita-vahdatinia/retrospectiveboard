@@ -5,17 +5,29 @@ import config from './config';
 import axios from 'axios';
 import * as api from './src/api'
 
+const instance = axios.create({
+  baseURL: "http://0.0.0.0:5000/"
+})
 
-
-const serverRender = () =>
-  axios.get(`${config.serverUrl}/api/category`)
+const checkValues = (team, sprint) => {
+    if (sprint && team) {
+      return `/${team}/${sprint}`;
+    }
+    else {
+      return `/teams`;
+    }
+}
+const serverRender = (team, sprint) =>
+  instance.get(checkValues(team, sprint))
     .then(resp => {
       return {
         initialMarkup: ReactDOMServer.renderToString(
-          <App initialCategory={resp.data.category} />
+          <App selectSprint={sprint} selectTeam={team}/>
         ),
         initialData: resp.data
       };
     });
+
+
 
 export default serverRender

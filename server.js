@@ -16,8 +16,8 @@ server.use(sassMiddleware({
 
 server.set('view engine', 'ejs');
 
-server.get(['/'], (req, res) => {
-  serverRender()
+server.get(['/', '/:team/:sprint'], (req, res) => {
+  serverRender(req.params.team, req.params.sprint)
     .then(({ initialMarkup, initialData }) => {
       res.render('index', {
         initialMarkup,
