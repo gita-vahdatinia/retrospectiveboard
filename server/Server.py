@@ -37,7 +37,7 @@ def get_teams():
             if item['team_name'].encode('utf-8') not in list_of_teams:
                 list_of_teams.append(item['team_name'].encode('utf-8'))
     except ClientError as e:
-        print(e.response['Error']['Message'])
+        return(e.response['Error']['Message'])
     else:
         return jsonify({"teams": list_of_teams})
 
@@ -48,7 +48,7 @@ def get_team_sprints(team):
         response = table.scan()
         list_of_sprints = [item['sprint_no'].encode('utf-8') for item in response['Items'] if item['team_name'].encode('utf-8') == team]
     except ClientError as e:
-        print(e.response['Error']['Message'])
+        return(e.response['Error']['Message'])
     else:
         return jsonify(list_of_sprints)
 
@@ -64,7 +64,7 @@ def get_all_values(team, sprint_no):
         )
         all_values = response['Item']['category']
     except ClientError as e:
-        print(e.response['Error']['Message'])
+        return(e.response['Error']['Message'])
     else:
         return (json.dumps(all_values, indent=4, cls=DecimalEncoder))
 

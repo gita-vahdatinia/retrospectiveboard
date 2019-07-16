@@ -14,8 +14,7 @@ class TeamBoard extends React.Component {
   state = this.props.initialData;
 
   getDataFromChild = (cat, data) => {
-    this.setState({ welldata: data });
-    this.setState({ currentCat: cat });
+    this.setState({ welldata: data, currentCat: cat });
   };
 
   toggleWellPopup() {
