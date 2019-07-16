@@ -11,11 +11,11 @@ class Header extends React.Component {
   componentDidMount() {
     api.fetchTeams().then(teams => {
       this.setState({
-        teams
+        teams: teams.teams
       });
       api.fetchSprint(this.state.selected_team).then(sprints => {
         this.setState({
-          sprints
+          sprints: sprints
         });
       });
     });

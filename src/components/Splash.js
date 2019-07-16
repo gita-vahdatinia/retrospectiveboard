@@ -7,24 +7,13 @@ import { Form, Row, Col, Button, Collapse, Dropdown } from "react-bootstrap";
 
 class Splash extends React.Component {
   state = {
-    teams: [],
+    teams: this.props.teams,
     sprints: ["0"],
     selectedTeam: "",
     selectedSprint: "",
     open: false
   };
-  componentDidMount() {
-    api.fetchTeams().then(teams => {
-      this.setState({
-        teams
-      });
-      api.fetchSprint(this.state.selectedTeam).then(sprints => {
-        this.setState({
-          sprints
-        });
-      });
-    });
-  }
+
   changeTeam(team) {
     api.fetchSprint(team.team).then(sprints => {
       this.setState({
