@@ -9,8 +9,8 @@ class Splash extends React.Component {
   state = {
     teams: this.props.teams,
     sprints: ["0"],
-    team: "",
-    sprint: "",
+    team: "Select a Team",
+    sprint: "Select a Sprint",
     open: false
   };
 
@@ -31,13 +31,24 @@ class Splash extends React.Component {
   handleSubmit(event) {
     api
       .createTeam(this.state.team, this.state.sprint)
-      .then(resp => console.log(resp));
+      .then(resp => this.props.selectedSprint(this.state.team, this.state.sprint));
   }
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
-  handleChoose(){
-    this.props.selectedSprint(this.state.team, this.state.sprint)
+  handleChoose() {
+    this.props.selectedSprint(this.state.team, this.state.sprint);
+  }
+  goTo() {
+    if (!isNaN(this.state.sprint)) {
+      return (
+        <Col md={{ span: 6, offset: 3 }}>
+          <Button onClick={this.handleChoose.bind(this)} className="splashbutton">
+            Go To {this.state.team} Board for Sprint {this.state.sprint}
+          </Button>
+        </Col>
+      );
+    }
   }
   render() {
     return (
@@ -47,13 +58,13 @@ class Splash extends React.Component {
             <Col md={{ span: 6, offset: 3 }}>
               <Dropdown>
                 <Dropdown.Toggle variant="success" id="dropdown-basic">
-                  Select a Team
+                  {this.state.team}
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   {this.state.teams.map(team => (
                     <Dropdown.Item
-                      onClick={this.changeTeam.bind(this, { team }) }
-                    >
+                      onClick={this.changeTeam.bind(this, { team })}
+                    className="splashbutton">
                       {team}
                     </Dropdown.Item>
                   ))}
@@ -65,26 +76,24 @@ class Splash extends React.Component {
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   {this.state.sprints.map(sprint => (
-                    <Dropdown.Item onClick={this.changeSprint.bind(this, { sprint }) }>{sprint}</Dropdown.Item>
+                    <Dropdown.Item
+                      onClick={this.changeSprint.bind(this, { sprint })}
+                    >
+                      {sprint}
+                    </Dropdown.Item>
                   ))}
                 </Dropdown.Menu>
               </Dropdown>
             </Col>
           </Row>
+          <Row>{this.goTo()}</Row>
           <Row>
-            <Col md={{ span: 6, offset: 3 }}>
-            <Button onClick={this.handleChoose.bind(this)}>
-                Go To {this.state.team} Board for Sprint{" "}
-                {this.state.sprint}
-              </Button>
-            </Col>
-          </Row>
-          <Row>
-            <Col md={{ span: 6, offset: 3 }}>
+            <Col md={{ span: 6, offset: 3 }} className="splashbutton">
               <Button
                 onClick={() => this.setState({ open: !this.state.open })}
                 aria-controls="example-collapse-text"
                 aria-expanded={this.state.open}
+                className="splashbutton"
               >
                 Create a New Board
               </Button>

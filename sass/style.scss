@@ -139,3 +139,20 @@
     color: #000;
   }
 }
+.dropdown-toggle{
+    width: 100%;
+    .splashbutton.dropdown-item{width: 100%}
+}
+.Splash{
+  text-transform: uppercase;
+  .dropdown-menu {
+    background-color: #fffcdc;
+    font-size: 0.3em;
+    -webkit-box-shadow: none;
+    border: 1em;
+    width: 100%;
+  }
+  .splashbutton{
+    width: 100%
+  }
+}
