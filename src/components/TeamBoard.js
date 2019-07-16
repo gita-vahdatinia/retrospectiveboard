@@ -7,6 +7,7 @@ import equal from "fast-deep-equal";
 import Category from "./Category";
 import Header from "./Header"
 import Splash from "./Splash"
+
 const pushState = (obj, url) =>
   window.history.pushState(obj, '', url);
 
@@ -49,6 +50,7 @@ class TeamBoard extends React.Component {
     });
   }
   componentDidUpdate(prevProps, prevState) {
+    if (!equal (this.state.sprint, "")){}
     if (!equal(this.state.welldata, prevState.welldata)) {
       api
         .postDescription(
@@ -72,9 +74,17 @@ class TeamBoard extends React.Component {
       `/${this.state.team}/${sprint}`
     )
   }
+  selectSplash = (team, sprint) =>{
+    this.setState({  team: team, sprint: sprint})
+    pushState(
+      { selectedTeam: team, selectSprint: sprint},
+      `/${team}/${sprint}`
+    )
+  }
   currentContent() {
   if (this.state.sprint) {
-    return (<div> <Header selectedTeam={this.onselectTeam} selectedSprint={this.onselectSprint} team={this.state.team} sprint={this.state.sprint}/>
+    return (<div>
+    <Header selectedTeam={this.onselectTeam} selectedSprint={this.onselectSprint} team={this.state.team} sprint={this.state.sprint}/>
     <Container fluid={true}>
       <Row>
         <Col s={12} md={4}>
@@ -145,7 +155,7 @@ class TeamBoard extends React.Component {
     </Container> </div>)
   }
 
-  return <Splash teams={this.state.teams}/>;
+  return <Splash teams={this.state.teams} selectedSprint={this.selectSplash}/>;
   }
   render() {
     return (

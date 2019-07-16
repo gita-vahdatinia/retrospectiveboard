@@ -9,8 +9,8 @@ class Splash extends React.Component {
   state = {
     teams: this.props.teams,
     sprints: ["0"],
-    selectedTeam: "",
-    selectedSprint: "",
+    team: "",
+    sprint: "",
     open: false
   };
 
@@ -18,23 +18,26 @@ class Splash extends React.Component {
     api.fetchSprint(team.team).then(sprints => {
       this.setState({
         sprints: sprints,
-        selectedTeam: team.team,
-        selectedSprint: sprints[0]
+        team: team.team,
+        sprint: sprints[0]
       });
     });
   }
   changeSprint(sprint) {
     this.setState({
-      selectedSprint: sprint.sprint
+      sprint: sprint.sprint
     });
   }
   handleSubmit(event) {
     api
-      .createTeam(this.state.selectedTeam, this.state.selectedSprint)
+      .createTeam(this.state.team, this.state.sprint)
       .then(resp => console.log(resp));
   }
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
+  }
+  handleChoose(){
+    this.props.selectedSprint(this.state.team, this.state.sprint)
   }
   render() {
     return (
@@ -58,7 +61,7 @@ class Splash extends React.Component {
               </Dropdown>
               <Dropdown>
                 <Dropdown.Toggle variant="success" id="dropdown-basic">
-                  {this.state.selectedSprint}
+                  {this.state.sprint}
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   {this.state.sprints.map(sprint => (
@@ -70,10 +73,9 @@ class Splash extends React.Component {
           </Row>
           <Row>
             <Col md={{ span: 6, offset: 3 }}>
-              <Button
-              >
-                Go To {this.state.selectedTeam} Board for Sprint{" "}
-                {this.state.selectedSprint}
+            <Button onClick={this.handleChoose.bind(this)}>
+                Go To {this.state.team} Board for Sprint{" "}
+                {this.state.sprint}
               </Button>
             </Col>
           </Row>
@@ -91,20 +93,20 @@ class Splash extends React.Component {
                   <Form onSubmit={this.handleSubmit.bind(this)}>
                     <Form.Control
                       type="text"
-                      name="selectedTeam"
+                      name="team"
                       placeholder="Enter Team Name"
                       onChange={this.handleChange.bind(this)}
                     />
 
                     <Form.Control
                       type="number"
-                      name="selectedSprint"
+                      name="sprint"
                       placeholder="Enter Sprint Number"
                       onChange={this.handleChange.bind(this)}
                     />
                     <Form.Control
                       type="submit"
-                      sprintvalue="selectedSprint"
+                      sprintvalue="sprint"
                       value="Submit"
                     />
                   </Form>
