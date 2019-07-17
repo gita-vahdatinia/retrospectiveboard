@@ -38,7 +38,7 @@ class Report extends React.Component {
             </Card>
           </Col>
         </Row>
-        <Button onClick={this.doneSend.bind(this)}>Done Reviewing</Button>
+        <Button onClick={this.doneSend.bind(this)} className="reviewButton">Done Reviewing</Button>
       </Container>
     );
   }

@@ -64,7 +64,7 @@ class Header extends React.Component {
     return (
       <div>
         <Navbar>
-          <Navbar.Brand href="" className="title">
+          <Navbar.Brand onClick={this.changeSprint.bind(this, "")} className="title">
             Retro
           </Navbar.Brand>
           <NavDropdown title={this.state.selected_team} id="basic-nav-dropdown">

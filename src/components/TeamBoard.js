@@ -49,7 +49,8 @@ class TeamBoard extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (!equal(this.state.sprint, "")) {
+    if (!equal(this.state.review, prevState.review)) {
+      this.fetchingLists();
     }
     if (!equal(this.state.welldata, prevState.welldata)) {
       api
@@ -67,7 +68,7 @@ class TeamBoard extends React.Component {
   }
   doneReview = review => {
     this.setState({ review: review });
-    pushState(
+      pushState(
       { selectedReview: review},
       `/${this.state.team}/${this.state.sprint}/${review}`
     );
@@ -76,8 +77,13 @@ class TeamBoard extends React.Component {
     this.setState({ team: team });
   };
   onselectSprint = sprint => {
+    if (sprint){
     this.setState({ sprint: sprint });
-    pushState({ selectSprint: sprint }, `/${this.state.team}/${sprint}`);
+    pushState({ selectSprint: sprint }, `/${this.state.team}/${sprint}`);}
+    else{
+      this.setState({ sprint: sprint });
+      pushState({ selectSprint: sprint }, `/`);}
+    
   };
   selectSplash = (team, sprint) => {
     this.setState({ team: team, sprint: sprint });

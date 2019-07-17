@@ -14,7 +14,7 @@ const checkValues = (team, sprint, review) => {
       var prev_sprint = sprint-1
       return `/${team}/${prev_sprint}`
     }
-    if(team && sprint){
+    else if(team && sprint){
       return `/${team}/${sprint}`;}
     else{
       return `/teams`
@@ -23,6 +23,7 @@ const checkValues = (team, sprint, review) => {
 const serverRender = (team, sprint, review) =>
   instance.get(checkValues(team, sprint, review))
     .then(resp => {
+      console.log(resp.data)
       resp.data.team = team
       resp.data.sprint = sprint
       resp.data.welldata = ""
