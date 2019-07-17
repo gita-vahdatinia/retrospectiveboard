@@ -3,7 +3,7 @@ import Header from "./Header";
 import TeamBoard from "./TeamBoard";
 import Popup from "./Popup";
 import * as api from "../api";
-import { Form, Row, Col, Button, Collapse, Dropdown, Card } from "react-bootstrap";
+import { Form, Row, Col, Button, Collapse, Dropdown, Card, Jumbotron } from "react-bootstrap";
 
 class Splash extends React.Component {
   state = {
@@ -32,6 +32,7 @@ class Splash extends React.Component {
     api
       .createTeam(this.state.team, this.state.sprint)
       .then(resp => this.props.selectedSprint(this.state.team, this.state.sprint));
+      this.props.selectedSprint(this.state.team, this.state.sprint);
   }
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
@@ -54,13 +55,14 @@ class Splash extends React.Component {
     return (
       <div className="Splash">
         <div className="backgroundImage">
-          <Row className="transparent"><Col>here</Col></Row>
-          <Row className="transparent"><Col>here</Col></Row>
+          <Jumbotron className="jumbo">
+            <h1>Retro</h1>
+          </Jumbotron>
           <Row>
             <Col md={{ span: 6, offset: 3 }}>
               <Dropdown>
                 <Dropdown.Toggle  id="dropdown-basic">
-                  {this.state.team}
+                  Select a Team
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   {this.state.teams.map(team => (
@@ -74,7 +76,7 @@ class Splash extends React.Component {
               </Dropdown>
               <Dropdown>
                 <Dropdown.Toggle  id="dropdown-basic">
-                  {this.state.sprint}
+                  Select a Sprint
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   {this.state.sprints.map(sprint => (
@@ -88,7 +90,6 @@ class Splash extends React.Component {
               </Dropdown>
             </Col>
           </Row>
-          <Row>{this.goTo()}</Row>
           <Row>
             <Col md={{ span: 6, offset: 3 }} className="splashbutton">
               <Button
@@ -123,6 +124,9 @@ class Splash extends React.Component {
                   </Form>
                 </div>
               </Collapse>
+              <Jumbotron className="goto">
+                <Row>{this.goTo()}</Row>
+              </Jumbotron>
             </Col>
           </Row>
         </div>

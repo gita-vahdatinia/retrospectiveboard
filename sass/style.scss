@@ -10,6 +10,8 @@
 .category_label {
   font-family: "Work Sans", sans-serif;
   font-size: 3em;
+  background-color: #fffcdc;
+  width: 100%;
 }
 
 .submit_button {
@@ -17,6 +19,8 @@
   font-family: "Pacifico", cursive;
   font-size: 1.5em;
   border: none;
+  position: relative;
+
 }
 
 .splash {
@@ -58,7 +62,7 @@
   top: 25%;
   bottom: 25%;
   margin: auto;
-  background: white;
+  background: transparent;
 
   .close {
     cursor: pointer;
@@ -86,7 +90,7 @@
   background-color: #fffaf0;
 }
 .card_body {
-  font-size: 1.2em;
+  font-size: 1.8em;
   -webkit-box-shadow: none;
   border-radius: 3em;
   border: 1em;
@@ -173,8 +177,28 @@
   .splashbutton{
     width: 100%
   }
+  .jumbo{
+    color: black;
+    background-color: transparent;
+    font-family: 'Pacifico', cursive;
+  }
+  .goto{
+    color: black;
+    background-color: transparent;
+  }
 }
-
+.smallplus{
+  border: none;
+  background-color: transparent;
+  text-align: center;
+  cursor: pointer;
+  font-size: 0.3em;
+  border-radius: 18px;
+  border: 2px solid #000;
+}
+.issues{
+  font-size: 1em;
+}
 // pink: #ffdcdf
 // yellow: #fffcdc
 // blue: #dcfffc

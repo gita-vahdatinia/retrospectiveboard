@@ -1,5 +1,4 @@
 from flask import Flask, request, jsonify, abort, Response
-import config
 import boto3
 import json
 from botocore.exceptions import ClientError
@@ -132,4 +131,4 @@ def get_pulse():
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=config.PORT_NUMBER, debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)

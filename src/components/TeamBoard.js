@@ -121,6 +121,7 @@ class TeamBoard extends React.Component {
                     onClick={this.toggleWellPopup.bind(this)}
                   >
                     Went Well
+                    <p className="smallplus">+</p>
                   </Card.Body>
                 </Card>
                 {this.checkCategoryEmpty("well")}
@@ -140,6 +141,8 @@ class TeamBoard extends React.Component {
                     onClick={this.toggleBadPopup.bind(this)}
                   >
                     Improve On
+                    <p className="smallplus">+</p>
+
                   </Card.Body>
                 </Card>
                 {this.checkCategoryEmpty("bad")}
@@ -159,6 +162,7 @@ class TeamBoard extends React.Component {
                     onClick={this.toggleImprovePopup.bind(this)}
                   >
                     To Do
+                    <p className="smallplus">+</p>
                   </Card.Body>
                 </Card>
                 {this.checkCategoryEmpty("todo")}

@@ -31,7 +31,7 @@ class Popup extends React.Component {
             &times;
           </a>
           <Form.Label className="category_label">
-            Enter what went {this.state.category} :
+            Enter your description:
           </Form.Label>
           <Form onSubmit={this.handleSubmit.bind()}>
             <Form.Group
