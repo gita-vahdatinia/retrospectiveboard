@@ -21,7 +21,7 @@ class Header extends React.Component {
     });
   }
 
-  changeTeam(team){
+  changeTeam(team) {
     api.fetchSprint(team.team).then(sprints => {
       this.setState({
         sprints: sprints,
@@ -31,13 +31,35 @@ class Header extends React.Component {
       this.props.selectedSprint(sprints[0]);
     });
     this.props.selectedTeam(team.team);
-  };
+  }
   changeSprint(sprint) {
     this.setState({
       selected_sprint: sprint.sprint
     });
     this.props.selectedSprint(sprint.sprint);
   }
+  gotoReview(){
+    this.setState({
+      review: "review"
+    });
+    this.props.goReview("review");
+  }
+  checkReview() {
+    if (this.props.message) {
+      var review_sprint = this.state.selected_sprint - 1
+      return (
+        <Navbar.Brand href="">
+          Review of Sprint {review_sprint}
+        </Navbar.Brand>
+      );
+    }
+    else {
+      return (
+        <Nav.Link onClick={this.gotoReview.bind(this)}>Go to Sprint Review</Nav.Link>
+      )
+    }
+  }
+
   render() {
     return (
       <div>
@@ -68,7 +90,9 @@ class Header extends React.Component {
               </NavDropdown.Item>
             ))}
           </NavDropdown>
+                  {this.checkReview()}
         </Navbar>
+
       </div>
     );
   }

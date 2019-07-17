@@ -7,6 +7,7 @@ import equal from "fast-deep-equal";
 import Category from "./Category";
 import Header from "./Header";
 import Splash from "./Splash";
+import Report from "./Report";
 
 const pushState = (obj, url) => window.history.pushState(obj, "", url);
 
@@ -46,6 +47,7 @@ class TeamBoard extends React.Component {
       });
     });
   }
+
   componentDidUpdate(prevProps, prevState) {
     if (!equal(this.state.sprint, "")) {
     }
@@ -63,6 +65,13 @@ class TeamBoard extends React.Component {
       this.fetchingLists();
     }
   }
+  doneReview = review => {
+    this.setState({ review: review });
+    pushState(
+      { selectedReview: review},
+      `/${this.state.team}/${this.state.sprint}/${review}`
+    );
+  };
   onselectTeam = team => {
     this.setState({ team: team });
   };
@@ -77,8 +86,8 @@ class TeamBoard extends React.Component {
       `/${team}/${sprint}`
     );
   };
-  checkCategoryEmpty(category){
-    if(Object.keys(this.state[category]).length !== 0){
+  checkCategoryEmpty(category) {
+    if (Object.keys(this.state[category]).length !== 0) {
       return (
         <Card.Body className={`card_body ${category}`}>
           <Category
@@ -87,15 +96,28 @@ class TeamBoard extends React.Component {
             upvoted={this.callIncrease.bind(this)}
           />
         </Card.Body>
-      )
-    }
-    else {
-      return (
-      <h1>Click on the cateogry to add a card</h1>)
+      );
+    } else {
+      return <h1>Click on the cateogry to add a card</h1>;
     }
   }
+
   currentContent() {
-    if (this.state.sprint) {
+    if (this.state.review) {
+      return (
+        <div>
+          {" "}
+          <Header
+            selectedTeam={this.onselectTeam}
+            selectedSprint={this.onselectSprint}
+            team={this.state.team}
+            sprint={this.state.sprint}
+            message={this.state.review}
+          />
+        <Report bad={this.state.bad} todo={this.state.todo} done={this.doneReview} review={this.state.review}/>
+        </div>
+      );
+    } else if (this.state.sprint) {
       return (
         <div>
           <Header
@@ -103,6 +125,8 @@ class TeamBoard extends React.Component {
             selectedSprint={this.onselectSprint}
             team={this.state.team}
             sprint={this.state.sprint}
+            message={this.state.review}
+            goReview={this.doneReview}
           />
           <Container fluid={true}>
             <Row>
@@ -142,7 +166,6 @@ class TeamBoard extends React.Component {
                   >
                     Improve On
                     <p className="smallplus">+</p>
-
                   </Card.Body>
                 </Card>
                 {this.checkCategoryEmpty("bad")}
@@ -171,11 +194,10 @@ class TeamBoard extends React.Component {
           </Container>{" "}
         </div>
       );
-    }
-
-    return (
-      <Splash teams={this.state.teams} selectedSprint={this.selectSplash} />
-    );
+    } else
+      return (
+        <Splash teams={this.state.teams} selectedSprint={this.selectSplash} />
+      );
   }
   render() {
     return <div>{this.currentContent()}</div>;

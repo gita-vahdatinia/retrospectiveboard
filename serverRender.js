@@ -9,19 +9,24 @@ const instance = axios.create({
   baseURL: "http://0.0.0.0:5000/"
 })
 
-const checkValues = (team, sprint) => {
+const checkValues = (team, sprint, review) => {
+    if (review){
+      var prev_sprint = sprint-1
+      return `/${team}/${prev_sprint}`
+    }
     if(team && sprint){
       return `/${team}/${sprint}`;}
     else{
       return `/teams`
     }
 }
-const serverRender = (team, sprint) =>
-  instance.get(checkValues(team, sprint))
+const serverRender = (team, sprint, review) =>
+  instance.get(checkValues(team, sprint, review))
     .then(resp => {
       resp.data.team = team
       resp.data.sprint = sprint
       resp.data.welldata = ""
+      resp.data.review = review
       return {
         initialMarkup: ReactDOMServer.renderToString(
           <TeamBoard initialData={resp.data} />
@@ -33,7 +38,6 @@ const serverRender = (team, sprint) =>
   const splashRender = () =>
     instance.get(`/teams`)
       .then(resp => {
-        console.log(resp.data)
         return {
           initialMarkup: ReactDOMServer.renderToString(
             <Splash initialData={resp.data} />
