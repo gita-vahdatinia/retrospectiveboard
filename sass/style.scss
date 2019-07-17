@@ -7,42 +7,100 @@
 // yellow: #fffcdc
 // blue: #dcfffc
 // purple: #dcdfff
-
-.popup {
-  position: fixed;
+.category_label {
+  font-family: "Work Sans", sans-serif;
+  font-size: 3em;
+  background-color: #fffcdc;
   width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
-  z-index: 1;
-  background: rgba(0,0,0,.3);
 }
 
+.submit_button {
+  background-color: #dcdfff;
+  font-family: "Pacifico", cursive;
+  font-size: 1.5em;
+  border: none;
+  position: relative;
+
+}
+.reviewButton {
+  background-color: #dcdfff;
+  font-family: "Pacifico", cursive;
+  font-size: 1.5em;
+  color: black;
+  border: none;
+  position: relative;
+  margin: 20px;
+  width: 100%;
+}
+
+.splash {
+  .transparent{
+    color: transparent;
+  }
+  .backgroundImage {
+    background: url("lines-wallpaper-pink.gif");
+    background-size: cover;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  font-size: 3em;
+  color: white;
+  text-align: center;
+}
+
+.Card {
+  &.popup {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    z-index: 1;
+    background: rgba(0, 0, 0, 0.3);
+  }
+}
 .popup_inner {
   position: absolute;
   left: 25%;
   right: 25%;
   top: 25%;
-  bottom: 40%;
+  bottom: 25%;
   margin: auto;
-  background: white;
-}
-.Card{
-    .card_title{
-      font-size: 3em;
-      color: black;
-      text-align: center;
-      font-family: 'Rubik', sans-serif;
-    }
-    border: none;
-    background-color: #fffaf0;
+  background: transparent;
 
+  .close {
+    cursor: pointer;
+    position: absolute;
+    display: block;
+    padding: 2px 5px;
+    line-height: 20px;
+    right: -10px;
+    top: -10px;
+    font-size: 24px;
+    background: #ffffff;
+    border-radius: 18px;
+    border: 2px solid #000;
+  }
 }
-.card_body{
-  font-size: 1.2em;
+.Card {
+  .card_title {
+    font-size: 3em;
+    color: black;
+    text-align: center;
+    font-family: "Rubik", sans-serif;
+    cursor: pointer;
+  }
+  border: none;
+  background-color: #fffaf0;
+}
+.card_body {
+  font-size: 1.8em;
   -webkit-box-shadow: none;
   border-radius: 3em;
   border: 1em;
@@ -50,45 +108,108 @@
   margin-top: 1em;
   margin-left: 1.5em;
   margin-right: 1.5em;
-  &.good{
+  &.well {
     border: 2px solid green;
+    background-color: transparent;
   }
-  &.improve{
+  &.bad {
     border: 2px solid red;
   }
-  &.action{
+  &.todo {
     border: 2px solid yellow;
   }
+  .small_text {
+    border: none;
+    background-color: transparent;
+    text-align: right;
+    cursor: pointer;
+    background: url("thumb-up.png");
+    background-repeat: no-repeat;
+    align-items: right;
+    background-position: right;
+    padding-right: 30px;
+
+  }
+}
+.card_line {
+  border-bottom: rgba(219, 222, 255, 0.68) 0.1em solid;
 }
 
-.add_card{
+.add_card {
   font-family: monospace;
   position: absolute;
   bottom: 0;
   right: 0;
 }
 
-
-.navbar{
+.navbar {
   border-radius: 0;
   font-size: 1.5em;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   background-color: #d9a7c7;
-  .dropdown-toggle{
+  .dropdown-toggle {
     color: #fffcdc;
   }
-  .title{
-    font-family: 'Pacifico', cursive;
+  .title {
+    font-family: "Pacifico", cursive;
     font-size: 1.5em;
   }
-  .dropdown-menu{
+  .dropdown-menu {
     background-color: #fffcdc;
-    font-size: .8em;
+    font-size: 0.8em;
     -webkit-box-shadow: none;
     border: 1em;
     min-width: 0;
   }
-  .dropdown-item{
+  .dropdown-item {
     color: #000;
   }
 }
+
+.Splash{
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+  text-transform: uppercase;
+  .dropdown-menu {
+    background-color: #dcfffc;
+    font-size: 0.3em;
+    -webkit-box-shadow: none;
+    border: 1em;
+    width: 100%;
+  }
+  .dropdown-toggle{
+      width: 100%;
+      font-size: 0.5em;
+      color: #fffcdc;
+      .splashbutton.dropdown-item{width: 100%}
+  }
+  .splashbutton{
+    width: 100%
+  }
+  .jumbo{
+    color: black;
+    background-color: transparent;
+    font-family: 'Pacifico', cursive;
+  }
+  .goto{
+    color: black;
+    background-color: transparent;
+  }
+}
+.smallplus{
+  border: none;
+  background-color: transparent;
+  text-align: center;
+  cursor: pointer;
+  font-size: 0.3em;
+  border-radius: 18px;
+  border: 2px solid #000;
+}
+.issues{
+  font-size: 1em;
+}
+// pink: #ffdcdf
+// yellow: #fffcdc
+// blue: #dcfffc
+// purple: #dcdfff

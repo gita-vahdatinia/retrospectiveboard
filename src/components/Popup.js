@@ -1,46 +1,55 @@
-import React from 'react';
-import {Button, FormControl, Dropdown, Card, Form} from 'react-bootstrap'
+import React from "react";
+import { Button, FormControl, Dropdown, Card, Form } from "react-bootstrap";
 
 class Popup extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {value: ""};
-
+    this.state = { value: "", category: this.props.category };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.close = this.close.bind(this);
   }
   handleSubmit(event) {
-    alert('A name was submitted: ' + this.state.value);
     event.preventDefault();
+    this.props.sendData(this.state.category, this.state.value);
+    this.props.closePopup();
   }
- handleChange(event) {
-   if (event.target.value != ""){
-   this.setState({value: event.target.value});
+  handleChange(event) {
+    this.setState({ value: event.target.value });
   }
- }
+
+  close(event){
+    event.preventDefault();
+    this.props.closePopup();
+  }
 
   render() {
     return (
-      <div className="Popup">
-           <div className='popup_inner'>
-             <h1>{this.props.text}</h1>
-               <Form onSubmit={this.handleSubmit}>
-                 <Form.Control as="select">
-                  <option>Well</option>
-                  <option>Bad</option>
-                  <option>Action</option>
-                </Form.Control>
-                <Form.Group type="text" value={this.state.value} onChange={this.handleChange} controlId="exampleForm.ControlTextarea1">
-                  <Form.Label>Example textarea</Form.Label>
-                  <Form.Control as="textarea" rows="3" />
-                </Form.Group>
-             <Form.Control type="submit" value="Submit" />
-           </Form>
-           <div className="close_popup">
-             <Button onClick={this.props.closePopup}>close me</Button>
-           </div>
-         </div>
-      </div>
+      <Card className="Popup">
+        <div className="popup_inner">
+          <a className="close" onClick={this.close}>
+            &times;
+          </a>
+          <Form.Label className="category_label">
+            Enter your description:
+          </Form.Label>
+          <Form onSubmit={this.handleSubmit.bind()}>
+            <Form.Group
+              type="text"
+              value={this.state.value}
+              onChange={this.handleChange}
+              controlId="exampleForm.ControlTextarea1"
+            >
+              <Form.Control as="textarea" rows="3" />
+            </Form.Group>
+            <Form.Control
+              type="submit"
+              value="Submit"
+              className="submit_button"
+            />
+          </Form>
+        </div>
+      </Card>
     );
   }
 }

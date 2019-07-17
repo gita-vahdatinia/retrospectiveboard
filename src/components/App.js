@@ -2,38 +2,39 @@ import React from 'react';
 import Header from './Header';
 import TeamBoard from './TeamBoard'
 import Popup from './Popup'
+import Splash from './Splash'
 import {Button} from 'react-bootstrap'
+
+const pushState = (obj, url) =>
+  window.history.pushState(obj, '', url);
 
 class App extends React.Component {
   state = {
     pageHeader: 'Retro',
-    category: this.props.initialCategory,
-    showPopup: false
+    showPopup: false,
+    selectTeam: "",
+    selectSprint: ""
   }
   togglePopup() {
    this.setState({
      showPopup: !this.state.showPopup
    });
  }
-
-  componentWillUnmount() {
-    // clean timers, listeners
+  onselectTeam = (team) => {
+    this.setState({ selectTeam: team})
+  }
+  onselectSprint = (sprint) =>{
+    this.setState({ selectSprint: sprint})
+    pushState(
+      {selectSprint: sprint},
+      `/${this.state.selectTeam}/${sprint}`
+    )
   }
   render() {
     return (
       <div className="App">
-        <Header message={this.state.pageHeader}  />
-        <TeamBoard category={this.state.category}/>
-        <div>
-        <Button className="add_card" onClick={this.togglePopup.bind(this) } size="lg" >+</Button>
-        {this.state.showPopup ?
-         <Popup
-          text='Click "Close Button" to hide popup'
-          closePopup={this.togglePopup.bind(this)}
-         />
-         : null
-        }
-        </div>
+      <Header message={this.state.pageHeader} selectedTeam={this.onselectTeam} selectedSprint={this.onselectSprint} />
+      <TeamBoard team={this.state.selectTeam} sprint={this.state.selectSprint}/>
       </div>
     );
   }
