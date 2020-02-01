@@ -47,7 +47,10 @@ class TeamBoard extends React.Component {
       });
     });
   }
-
+  shouldComponentUpdate(prevProps, prevState) {
+    return (!equal(this.props.initialData, this.state.initialData)
+    || (prevState.teams.length >0  ))
+  }
   componentDidUpdate(prevProps, prevState) {
     if (!equal(this.state.review, prevState.review)) {
       this.fetchingLists();
@@ -83,7 +86,7 @@ class TeamBoard extends React.Component {
     else{
       this.setState({ sprint: sprint });
       pushState({ selectSprint: sprint }, `/`);}
-    
+
   };
   selectSplash = (team, sprint) => {
     this.setState({ team: team, sprint: sprint });
@@ -104,7 +107,7 @@ class TeamBoard extends React.Component {
         </Card.Body>
       );
     } else {
-      return <h1>Click on the cateogry to add a card</h1>;
+      return <h1>Click on the (+) to add a card</h1>;
     }
   }
 
