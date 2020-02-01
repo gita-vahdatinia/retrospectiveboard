@@ -1,10 +1,9 @@
-# ITO-194
 Retrospective Board
 ====================
 
 An interactive web based dashboard for making Sprint retrospective easier to view.
 
-Installation
+Installation for local use
 ==============
 git clone the repo
 - npm i
