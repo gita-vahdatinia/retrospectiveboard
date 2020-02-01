@@ -33,19 +33,19 @@ def get_teams():
         response = table.scan()
         list_of_teams = []
         for item in response['Items']:
-            if item['team_name'].encode('utf-8') not in list_of_teams:
-                list_of_teams.append(item['team_name'].encode('utf-8'))
+            if item['team_name'] not in list_of_teams:
+                list_of_teams.append(item['team_name'])
     except ClientError as e:
         return(e.response['Error']['Message'])
     else:
-        return jsonify({"teams": list_of_teams})
+        return ({"teams": list_of_teams})
 
 
 @app.route('/<team>/sprint')
 def get_team_sprints(team):
     try:
         response = table.scan()
-        list_of_sprints = [item['sprint_no'].encode('utf-8') for item in response['Items'] if item['team_name'].encode('utf-8') == team]
+        list_of_sprints = [item['sprint_no'] for item in response['Items'] if item['team_name'] == team]
     except ClientError as e:
         return(e.response['Error']['Message'])
     else:

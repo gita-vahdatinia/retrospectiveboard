@@ -23,7 +23,7 @@ const checkValues = (team, sprint, review) => {
 const serverRender = (team, sprint, review) =>
   instance.get(checkValues(team, sprint, review))
     .then(resp => {
-      console.log(resp.data)
+      console.log(resp.data.sprint)
       resp.data.team = team
       resp.data.sprint = sprint
       resp.data.welldata = ""
