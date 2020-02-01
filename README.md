@@ -1,4 +1,3 @@
-# ITO-194
 Retrospective Board
 ====================
 
