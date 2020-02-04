@@ -1,17 +1,16 @@
-FROM ubuntu:16.04
+FROM python:3
 
 RUN apt-get update -y && \
-    apt-get install -y python-pip python-dev
+    apt-get install -y vim
 
-COPY ./requirements.txt /app/requirements.txt
+COPY ./server/requirements.txt /app/requirements.txt
 
 WORKDIR /app
 
-RUN pip install -r requirements.txt
+RUN pip3 install --no-cache-dir -r requirements.txt
 
-COPY . /app
+COPY ./server /app
 
 EXPOSE 5000
-ENTRYPOINT [ "python" ]
 
-CMD [ "Server.py" ]
+CMD ["python", "Server.py" ]
