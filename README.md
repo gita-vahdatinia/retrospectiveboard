@@ -14,6 +14,7 @@ Setup with webpack, babel, hosted on AWS and deployed with docker.
 - [ ] Update splash page photo
 - [ ] Change thumbs up icon
 - [ ] http://ec2-54-236-82-8.compute-1.amazonaws.com:8080/
+- [ ] Change splash page buttons to be aligned in center after deployed w no data 
 
 ###### Infrastructure:
 - [x] Create docker network with docker compose
