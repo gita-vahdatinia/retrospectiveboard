@@ -8,11 +8,16 @@ from datetime import datetime
 from boto3.dynamodb.conditions import Key, Attr
 from botocore.exceptions import ClientError
 import decimal
-
+import os
 
 app = Flask(__name__)
 CORS(app)
-dynamodb = boto3.resource("dynamodb", region_name='us-east-1')
+# Or via the Session
+session = boto3.Session(
+    aws_access_key_id=os.environ['AWSAccessKeyId'],
+    aws_secret_access_key=os.environ['AWSSecretKey']
+)
+dynamodb = session.resource("dynamodb", region_name='us-east-1')
 table = dynamodb.Table('SprintRetro')
 ACTIVE_STATE = 'alive!'
 

@@ -7,6 +7,8 @@ services:
     ports:
       - "8080:8080"
   backend:
+    env_file:
+      - rootkey.env
     build:
       context: .
       dockerfile: ./server/Dockerfile

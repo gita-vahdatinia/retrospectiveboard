@@ -45,3 +45,4 @@ server/config.pyc
 
 #misc
 package-lock.json
+*.env
