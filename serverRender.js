@@ -6,7 +6,7 @@ import axios from 'axios';
 import * as api from './src/api'
 
 const instance = axios.create({
-  baseURL: "http://0.0.0.0:5000/"
+  baseURL: "http://backend:5000/"
 })
 
 const checkValues = (team, sprint, review) => {

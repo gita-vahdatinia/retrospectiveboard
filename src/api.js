@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: "http://0.0.0.0:5000/"
+  baseURL: "http://backend:5000/"
 })
 
 //Return as set so removes duplicates
