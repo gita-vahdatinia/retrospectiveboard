@@ -20,10 +20,11 @@ const checkValues = (team, sprint, review) => {
       return `/teams`
     }
 }
+
 const serverRender = (team, sprint, review) =>
   instance.get(checkValues(team, sprint, review))
     .then(resp => {
-      console.log(resp.data.sprint)
+      console.log(resp.data)
       resp.data.team = team
       resp.data.sprint = sprint
       resp.data.welldata = ""
@@ -36,16 +37,14 @@ const serverRender = (team, sprint, review) =>
       };
     });
 
-  const splashRender = () =>
-    instance.get(`/teams`)
-      .then(resp => {
-        return {
-          initialMarkup: ReactDOMServer.renderToString(
-            <Splash initialData={resp.data} />
-          ),
-          initialData: resp.data,
-        };
-      });
 
+export const fetchSprint = (team) => {
+      console.log("TESTING")
+      console.log(team)
+       instance.get(`/${team}/sprint`)
+        .then(resp => {
+          return
+          {[...new Set(resp.data)]}})
+}
 
 export default serverRender

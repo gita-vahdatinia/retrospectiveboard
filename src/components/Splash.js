@@ -14,13 +14,19 @@ class Splash extends React.Component {
     open: false
   };
 
+
   changeTeam(team) {
-    api.fetchSprint(team.team).then(sprints => {
+    fetch("/fetch/sprint/values/"+team.team)
+    .then(res => res.json()) //returning a promise To extract the JSON body content from the response
+    .then(resJson => {
       this.setState({
-        sprints: sprints,
+        sprints: resJson,
         team: team.team,
-        sprint: sprints[0]
+        sprint: resJson[0]
       });
+    })
+    .catch(error => {
+      console.error(error);
     });
   }
   changeSprint(sprint) {

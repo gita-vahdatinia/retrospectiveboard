@@ -39,6 +39,7 @@ class TeamBoard extends React.Component {
       .then(resp => this.fetchingLists());
   };
   fetchingLists() {
+    fetch(this.state.team+"/"+this.state.sprint)
     api.fetchItems(this.state.team, this.state.sprint).then(items => {
       this.setState({
         bad: items.bad,
@@ -205,7 +206,7 @@ class TeamBoard extends React.Component {
       );
     } else
       return (
-        <Splash teams={this.state.teams} selectedSprint={this.selectSplash} />
+        <Splash teams={this.state.teams} sprints={this.state.sprints} selectedSprint={this.selectSplash} />
       );
   }
   render() {

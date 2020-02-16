@@ -9,29 +9,28 @@ class Header extends React.Component {
     selected_sprint: this.props.sprint
   };
   componentDidMount() {
-    api.fetchTeams().then(teams => {
+    fetch("/fetch/sprint/values/"+this.state.selected_team)
+    .then(res => res.json()) //returning a promise To extract the JSON body content from the response
+    .then(resJson => {
       this.setState({
-        teams: teams.teams
+        sprints: resJson
       });
-      api.fetchSprint(this.state.selected_team).then(sprints => {
-        this.setState({
-          sprints: sprints
-        });
-      });
-    });
+    })
   }
 
   changeTeam(team) {
-    api.fetchSprint(team.team).then(sprints => {
+    fetch("/fetch/sprint/values/"+team.team)
+    .then(res => res.json()) //returning a promise To extract the JSON body content from the response
+    .then(resJson => {
       this.setState({
-        sprints: sprints,
+        sprints: resJson,
         selected_team: team.team,
-        selected_sprint: sprints[0]
+        selected_sprint: resJson[0]
       });
-      this.props.selectedSprint(sprints[0]);
+      this.props.selectedSprint(resJson[0]);
     });
     this.props.selectedTeam(team.team);
-  }
+    }
   changeSprint(sprint) {
     this.setState({
       selected_sprint: sprint.sprint
