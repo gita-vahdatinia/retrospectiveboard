@@ -8,17 +8,19 @@ Setup with webpack, babel, hosted on AWS and deployed with docker.
 ##### TO DO LIST:
 ###### BackEnd:
 - [ ] Set up routing so there is no need to autorefresh
--[ ] Create login so public can not post  
+- [ ] Create login so public can not post  
 
 ###### FrontEnd:
 - [ ] Update splash page photo
 - [ ] Change thumbs up icon
 - [ ] http://ec2-54-236-82-8.compute-1.amazonaws.com:8080/
-- [ ] Change splash page buttons to be aligned in center after deployed w no data 
+- [ ] Change splash page buttons to be aligned in center after deployed w no data
+- [ ] Need  to remove api js file and switch all to serverrender so network calls
+do not see the backend flask calls (currently works for only some of the function calls)
 
 ###### Infrastructure:
 - [x] Create docker network with docker compose
-- [ ] AWS
+- [x] Fix credential issue when on ec2 instance
 - [ ] Create jenkins pipeline w github webhook so auto deploys w newest code
 - [ ] Create load balancer and set up w Route 53
 - [ ] Sign up for public domain
